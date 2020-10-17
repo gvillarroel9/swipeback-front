@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "swipe-bank-frontend"
+    }
+  },
+  "defaultProject": "swipe-bank-frontend",
+  "cli": {
+    "analytics": "a0404eb3-6577-4d02-801e-f1e37265e86e"
+  }
 }
