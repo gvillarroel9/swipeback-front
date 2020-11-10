@@ -1,1 +1,73 @@
-<p>sign-up works!</p>
+<div class="page">
+    <div class="page-single">
+        <div class="">
+            <div class="">
+                <div class="">
+                    <div class="text-center mb-6">
+                        <img src="assets/images/brand/logo.png" class="h-6" alt="">
+                    </div>
+                    <form class="card" [formGroup]="signUpForm">
+                        <div class="card-title text-center pt-6 m-0">
+                            <h3 class="font-weight-bold">Regístrate</h3>
+                        </div>
+                        <div class="card-body p-6 form-grid">									
+                            <div class="form-group">
+                                <label class="form-label">Nombre Completo</label>
+                                <input formControlName="fullName" type="text" class="form-control" placeholder="Geraldo Villarroel">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Correo Electrónico</label>
+                                <input formControlName="email" type="email" class="form-control" placeholder="correo@gmail.com">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Nombre de Usuario</label>
+                                <input formControlName="username" class="form-control" placeholder="geraldov45">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Dirección</label>
+                                <input formControlName="address" type="text" class="form-control" placeholder="San Antonio de los Altos Miranda Venezuela">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Contraseña</label>
+                                <input formControlName="password" type="password" class="form-control" placeholder="Contraseña">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Confirmar Contraseña</label>
+                                <input formControlName="cPassword" type="password" class="form-control" placeholder="Confirmar contraseña">
+                            </div>								
+                            <div class="form-group">
+                                <label class="form-label">Número de Identificación</label>
+                                <div class="d-flex">
+                                    <div class="btn-group mt-2 mb-2">
+                                        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                                            Tipo <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu"> 
+                                            <li (click)="setFormValue('type', 'NATURAL')"><a>Natural</a></li>                                          
+                                            <li (click)="setFormValue('type', 'JURIDICO')"><a>Jurídico</a></li>
+                                        </ul>
+                                    </div>
+                                    <input type="text" class="form-control m-2" placeholder="4599548">
+                                </div>                                                                    
+                            </div>
+                            <div class="form-group d-flex align-items-end ">
+                                <label class="custom-control custom-checkbox">
+                                    <input formControlName="terms" type="checkbox" class="custom-control-input" />
+                                    <span class="custom-control-label font-weight-bold">He leído y acepto <a href="terms.html">los términos y condiciones</a></span>
+                                </label>
+                            </div>
+                            <div class="button-section">
+                                <div class="form-footer">
+                                    <button type="button" (click)="signUp()" class="btn btn-primary btn-block">Registrarse</button>
+                                </div>
+                                <div class="text-center text-muted mt-4">
+                                    ¿Ya estás registrado? <a href="./login.html">Ingresar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

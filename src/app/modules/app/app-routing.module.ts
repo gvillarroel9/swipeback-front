@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SignInPage } from './pages/sign-in/sign-in.page';
+import { SignUpPage } from './pages/sign-up/sign-up.page';
 import { AppLayoutComponent } from './app-layout.component';
 
 const routes: Routes = [
@@ -10,7 +11,7 @@ const routes: Routes = [
   },
   {
     path: 'signup',
-    component: SignInPage
+    component: SignUpPage
   },
   {
     path: '',
