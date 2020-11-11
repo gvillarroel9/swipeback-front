@@ -9,6 +9,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { AppLayoutComponent } from './app-layout.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignUpPage } from './pages/sign-up/sign-up.page';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from './services/auth/auth.service';
 
 @NgModule({
   declarations: [
@@ -20,9 +22,13 @@ import { SignUpPage } from './pages/sign-up/sign-up.page';
     HeaderComponent],
   imports: [
     CommonModule,
+    HttpClientModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule
+  ],
+  providers: [
+    AuthService
   ]
 })
 export class AppModule { }

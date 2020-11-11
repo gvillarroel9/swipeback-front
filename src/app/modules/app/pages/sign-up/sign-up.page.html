@@ -10,30 +10,93 @@
                         <div class="card-title text-center pt-6 m-0">
                             <h3 class="font-weight-bold">Regístrate</h3>
                         </div>
-                        <div class="card-body p-6 form-grid">									
+                        <div class="card-body p-6 form-grid">
+                            <div *ngIf="errors.length" class="alert alert-danger button-section">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <strong>Error al registrarse</strong>
+                                <hr class="message-inner-separator">
+                                <p *ngFor="let error of errors" class="mb-0 text-capitalize"> {{error}} </p>
+                            </div>
+                            <div *ngIf="success" class="alert alert-success button-section">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <strong>Se ha registrado con éxito</strong>
+                            </div>									
                             <div class="form-group">
                                 <label class="form-label">Nombre Completo</label>
-                                <input formControlName="fullName" type="text" class="form-control" placeholder="Geraldo Villarroel">
+                                <input 
+                                    formControlName="fullName" 
+                                    type="text" 
+                                    class="form-control" 
+                                    placeholder="Geraldo Villarroel"
+                                    [class.invalid-input]="signUpForm.controls.fullName.invalid && signUpForm.controls.fullName.touched"
+                                >
+                                <div class="input-error" *ngIf="signUpForm.controls.fullName.invalid && signUpForm.controls.fullName.touched">
+                                    Requerido
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Correo Electrónico</label>
-                                <input formControlName="email" type="email" class="form-control" placeholder="correo@gmail.com">
+                                <input 
+                                    formControlName="email" 
+                                    type="email" 
+                                    class="form-control" 
+                                    placeholder="correo@gmail.com"
+                                    [class.invalid-input]="signUpForm.controls.email.invalid && signUpForm.controls.email.touched"
+                                >
+                                <div class="input-error" *ngIf="signUpForm.controls.email.invalid && signUpForm.controls.email.touched">
+                                    Requerido
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Nombre de Usuario</label>
-                                <input formControlName="username" class="form-control" placeholder="geraldov45">
+                                <input 
+                                    formControlName="username" 
+                                    class="form-control"
+                                    placeholder="geraldov45"
+                                    [class.invalid-input]="signUpForm.controls.username.invalid && signUpForm.controls.username.touched"
+                                >
+                                <div class="input-error" *ngIf="signUpForm.controls.username.invalid && signUpForm.controls.username.touched">
+                                    Requerido
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Dirección</label>
-                                <input formControlName="address" type="text" class="form-control" placeholder="San Antonio de los Altos Miranda Venezuela">
+                                <input 
+                                    formControlName="address" 
+                                    type="text" class="form-control" 
+                                    placeholder="San Antonio de los Altos Miranda Venezuela"
+                                    [class.invalid-input]="signUpForm.controls.address.invalid && signUpForm.controls.address.touched"
+                                >
+                                <div class="input-error" *ngIf="signUpForm.controls.address.invalid && signUpForm.controls.address.touched">
+                                    Requerido
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Contraseña</label>
-                                <input formControlName="password" type="password" class="form-control" placeholder="Contraseña">
+                                <input 
+                                formControlName="password" 
+                                type="password" 
+                                class="form-control" 
+                                placeholder="Contraseña"
+                                [class.invalid-input]="signUpForm.controls.password.invalid && signUpForm.controls.password.touched"
+                                >
+                                <div class="input-error" *ngIf="signUpForm.controls.password.invalid && signUpForm.controls.password.touched">
+                                    Requerido
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Confirmar Contraseña</label>
-                                <input formControlName="cPassword" type="password" class="form-control" placeholder="Confirmar contraseña">
+                                <input 
+                                    formControlName="cPassword" 
+                                    type="password"
+                                    class="form-control" 
+                                    placeholder="Confirmar contraseña"
+                                    [class.invalid-input]="signUpForm.controls.cPassword.invalid && signUpForm.controls.cPassword.touched"
+                                >
+                                <div class="input-error" 
+                                *ngIf="signUpForm.controls.cPassword.invalid && signUpForm.controls.cPassword.touched">
+                                    Requerido
+                                </div>
                             </div>								
                             <div class="form-group">
                                 <label class="form-label">Número de Identificación</label>
@@ -47,8 +110,18 @@
                                             <li (click)="setFormValue('type', 'JURIDICO')"><a>Jurídico</a></li>
                                         </ul>
                                     </div>
-                                    <input type="text" class="form-control m-2" placeholder="4599548">
-                                </div>                                                                    
+                                    <input 
+                                        formControlName="dni" 
+                                        type="text" 
+                                        class="form-control m-2" 
+                                        placeholder="4599548"
+                                        [class.invalid-input]="signUpForm.controls.dni.invalid && signUpForm.controls.dni.touched"
+                                    >
+                                </div>
+                                <div class="input-error" 
+                                *ngIf="signUpForm.controls.type.invalid && signUpForm.controls.type.touched && signUpForm.controls.dni.invalid && signUpForm.controls.dni.touched">
+                                    Requerido
+                                </div>                                                                   
                             </div>
                             <div class="form-group d-flex align-items-end ">
                                 <label class="custom-control custom-checkbox">
@@ -58,7 +131,12 @@
                             </div>
                             <div class="button-section">
                                 <div class="form-footer">
-                                    <button type="button" (click)="signUp()" class="btn btn-primary btn-block">Registrarse</button>
+                                    <button 
+                                        type="button" 
+                                        (click)="signUp()" 
+                                        class="btn btn-primary btn-block"
+                                        [disabled] = "signUpForm.invalid"
+                                    >Registrarse</button>
                                 </div>
                                 <div class="text-center text-muted mt-4">
                                     ¿Ya estás registrado? <a href="./login.html">Ingresar</a>
