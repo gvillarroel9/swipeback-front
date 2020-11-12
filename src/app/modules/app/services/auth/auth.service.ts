@@ -17,6 +17,8 @@ export class AuthService {
     return this.http.post(`${environment.apiUrl}auth/signup`, body );
   }
 
-
+  public signIn( body ): Observable<any> {
+    return this.http.post(`${environment.apiUrl}auth/signin`, body );
+  }
 
 }

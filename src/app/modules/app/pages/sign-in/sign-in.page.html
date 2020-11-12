@@ -7,30 +7,60 @@
             <div class="text-center mb-6">
               <img src="assets/images/brand/logo.png" class="h-6" alt="">
             </div>
-            <form class="card" method="post">
+            <form class="card" [formGroup]="signInForm">
               <div class="card-body p-6">
-                <div class="card-title text-center">Login to your Account</div>
+                <div class="card-title text-center">Ingresa en tu cuenta</div>
                 <div class="form-group">
-                  <label class="form-label">Email address</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1"  placeholder="Enter email">
+                  <div *ngIf="error" class="alert alert-danger button-section">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <strong>Error al registrarse</strong>
+                    <hr class="message-inner-separator">
+                    <p class="mb-0 text-capitalize"> {{error}} </p>
+                  </div>
+                  <div *ngIf="success" class="alert alert-success button-section">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <strong>Ha ingresado con éxito</strong>
+                  </div>
+                  <label class="form-label">Nombre de Usuario</label>
+                  <input 
+                      formControlName="username" 
+                      class="form-control"
+                      placeholder="geraldov45"
+                      [class.invalid-input]="signInForm.controls.username.invalid && signInForm.controls.username.touched"
+                  >
+                  <div class="input-error" *ngIf="signInForm.controls.username.invalid && signInForm.controls.username.touched">
+                      Requerido
+                  </div>
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Password
-                    <a href="./forgot-password.html" class="float-right small">I forgot password</a>
-                  </label>
-                  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                  <label class="form-label">Contraseña</label>
+                  <input 
+                  formControlName="password" 
+                  type="password" 
+                  class="form-control" 
+                  placeholder="Contraseña"
+                  [class.invalid-input]="signInForm.controls.password.invalid && signInForm.controls.password.touched"
+                  >
+                  <div class="input-error" *ngIf="signInForm.controls.password.invalid && signInForm.controls.password.touched">
+                      Requerido
+                  </div>
                 </div>
                 <div class="form-group">
                   <label class="custom-control custom-checkbox">
                     <input type="checkbox" class="custom-control-input" />
-                    <span class="custom-control-label">Remember me</span>
+                    <span class="custom-control-label">Recuérdame</span>
                   </label>
                 </div>
                 <div class="form-footer">
-                  <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                  <button 
+                    type="button" 
+                    (click)="signIn()" 
+                    class="btn btn-primary btn-block"
+                    [disabled] = "signInForm.invalid"
+                  >Ingresar</button>
                 </div>
                 <div class="text-center text-muted mt-3">
-                  Don't have account yet? <a href="./register.html">Sign up</a>
+                  ¿No tienes cuenta? <a [routerLink]="['/app/signup']">Regístrate</a>
                 </div>
               </div>
 
