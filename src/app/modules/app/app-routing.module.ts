@@ -22,6 +22,7 @@ const routes: Routes = [
     children: [
       { path: 'dashboard', loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule) },
       { path: 'credit-card', loadChildren: () => import('./modules/credit-card/credit-card.module').then(m => m.CreditCardModule) },
+      { path: 'account', loadChildren: () => import('./modules/accounts/accounts.module').then(m => m.AccountsModule) }
     ]
   },
   {
