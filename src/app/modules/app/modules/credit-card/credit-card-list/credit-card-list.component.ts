@@ -6,11 +6,11 @@ import { CreditCardService } from '../../../services/credit-card/credit-card.ser
   templateUrl: './credit-card-list.component.html',
   styleUrls: ['./credit-card-list.component.css']
 })
-export class CreditCardListComponent implements OnInit {
+export class CreditCardListComponent {
 
   public creditCards = [];
   constructor(private _creditCardService: CreditCardService) { 
-    _creditCardService.getCreditCards().subscribe(res => {
+    this._creditCardService.getCreditCards().subscribe(res => {
       this.creditCards = res;
     });
   }
