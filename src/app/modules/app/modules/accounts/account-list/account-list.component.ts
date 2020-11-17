@@ -9,19 +9,27 @@ import { AccountsService } from '../../../services/accounts/accounts.service';
 })
 export class AccountListComponent implements OnInit {
 
+  accounts = [];
+
   constructor(
     private accountService: AccountsService
   ) { }
 
   ngOnInit(): void {
-
+    this.getAccounts();
+  }
+  getAccounts() {
     this.accountService.getAccounts().subscribe(
       (res) => {
-        console.log(res)
+        this.accounts = res;
       }
-
     )
+  }
 
+  createAccount(){
+      this.accountService.createAccount().subscribe(
+        (res) => this.accounts.push(res)
+      )
   }
 
 }
