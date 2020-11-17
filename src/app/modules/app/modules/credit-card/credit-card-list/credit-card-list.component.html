@@ -9,8 +9,9 @@
     <div class="row">
         <div class="col-md-12 col-lg-12">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header d-flex justify-content-between">
                     <h3 class="card-title">Todas mis tarjetas de crédito</h3>
+                    <button class="btn btn-primary" (click)="createCreditCard()"> Crear tarjeta de crédito</button>
                 </div>
                 <div class="table-responsive">
                     <table class="table card-table table-vcenter text-nowrap">
@@ -22,10 +23,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>45546546645654645654654645656</td>
-                                <td>$43,198</td>
-                                <td>Hola</td>
+                            <tr *ngFor="let creditCard of creditCards">
+                                <td>{{ creditCard.number }}</td>
+                                <td>{{ creditCard.limit }}</td>
+                                <td>{{ creditCard.balance }}</td>
                             </tr>
                         </tbody>
                     </table>
