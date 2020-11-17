@@ -20,6 +20,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: 'dashboard', loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule) },
+      { path: 'account', loadChildren: () => import('./modules/accounts/accounts.module').then(m => m.AccountsModule) }
     ]
   },
   {

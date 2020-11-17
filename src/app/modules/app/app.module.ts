@@ -9,8 +9,9 @@ import { HeaderComponent } from './components/header/header.component';
 import { AppLayoutComponent } from './app-layout.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignUpPage } from './pages/sign-up/sign-up.page';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from './services/auth/auth.service';
+import { Interceptor } from './interceptor/interceptor';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AuthService } from './services/auth/auth.service';
     FormsModule
   ],
   providers: [
-    AuthService
+    AuthService,
+    { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
   ]
 })
 export class AppModule { }
