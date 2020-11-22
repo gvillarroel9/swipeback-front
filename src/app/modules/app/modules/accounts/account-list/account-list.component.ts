@@ -10,6 +10,8 @@ import Swal from 'sweetalert2';
 export class AccountListComponent implements OnInit {
 
   accounts = [];
+  page: number = 1;
+  pageSize: number = 5;
 
   constructor(
     private accountService: AccountsService

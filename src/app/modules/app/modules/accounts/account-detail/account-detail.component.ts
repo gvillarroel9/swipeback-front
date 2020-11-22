@@ -15,6 +15,8 @@ export class AccountDetailComponent implements OnInit {
   ) { }
 
   accountInfo: any;
+  page: number = 1;
+  pageSize: number = 5;
 
   ngOnInit(): void {
     const accountNumber = this.route.snapshot.params.id;

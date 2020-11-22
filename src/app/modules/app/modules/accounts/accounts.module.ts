@@ -8,6 +8,7 @@ import { AccountDepositComponent } from './account-deposit/account-deposit.compo
 import { ReactiveFormsModule } from '@angular/forms';
 import { AccountWithdrawComponent } from './account-withdraw/account-withdraw.component';
 import { AccountDetailComponent } from './account-detail/account-detail.component';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AccountDetailComponent } from './account-detail/account-detail.componen
   imports: [
     CommonModule,
     AccountsRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbPaginationModule
   ],
   providers: [
     AccountsService

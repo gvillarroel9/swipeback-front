@@ -23,7 +23,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let account of accounts">
+                            <tr *ngFor="let account of accounts | slice: (page-1) * pageSize : page * pageSize">
                                 <td>{{account.number}}</td>
                                 <td>{{account.balance | currency}}</td>
                                 <td><a [routerLink]="['detail', account.number]" class="btn btn-info"><i class="fa fa-eye"></i></a></td>
@@ -32,6 +32,13 @@
                     </table>
                 </div>
                 <!-- table-responsive -->
+                <div class="d-flex justify-content-center">
+                    <ngb-pagination
+                        [(page)]="page"
+                        [pageSize]="pageSize"
+                        [collectionSize]="accounts.length">
+                    </ngb-pagination>
+                </div>
             </div>
         </div>
     </div>
