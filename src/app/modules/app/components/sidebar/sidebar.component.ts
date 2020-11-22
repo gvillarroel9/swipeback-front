@@ -1,4 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { AuthService } from '../../services/auth/auth.service';
+import { LocalService } from '../../services/local-storage/local.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,9 +11,22 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
 
-  ngOnInit(): void {
+  }
+
+  navItems = [
+    {label: 'Cuentas', url: 'account', icon: 'fa fa-bank' ,dropdown: false, subNavItems: []},
+    {label: 'Tarjetas de Crédito', url: 'credit-card', icon: 'fa fa-credit-card' , dropdown: true, 
+      subNavItems: [
+        {label: 'Mis tarjetas', url: 'credit-card', icon: 'fa fa-credit-card'},
+        {label: 'Pagar', url: 'credit-card/pay', icon: 'fa fa-credit-card'},
+      ]
+    },
+  ];
+
+  ngOnInit() {
+
   }
 
 }

@@ -4,150 +4,22 @@
       <a class="header-brand" href="index.html">
         <img src="assets/images/brand/logo.png" class="header-brand-img" alt="vobilet logo">
       </a>
-      <div class="menu-toggle-button">
-        <a class="nav-link wave-effect" id="sidebarCollapse">
-          <span class="fa fa-bars"></span>
-        </a>
-      </div>
-      <div class=" ">
-        <form class="input-icon mt-1 ">
-          <div class="input-icon-addon">
-            <i class="fe fe-search"></i>
-          </div>
-          <input type="search" class="form-control header-search" placeholder="Search&hellip;" tabindex="1">
-        </form>
-      </div>
+      
       <div class="d-flex order-lg-2 ml-auto">
-
-        <div class="dropdown d-none d-md-flex mt-1">
-          <a class="nav-link icon" data-toggle="dropdown">
-            <i class="fa fa-user-o"></i>
-            <span class="nav-unread bg-green"></span>
-          </a>
-          <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-            <a href="#" class="dropdown-item d-flex pb-3">
-              <span class="avatar brround mr-3 align-self-center" style="background-image: url(assets/images/faces/male/4.jpg)"></span>
-              <div>
-                <strong>Madeleine Scott</strong> Sent you add request
-                <div class="small text-muted">view profile</div>
-              </div>
-            </a>
-            <a href="#" class="dropdown-item d-flex pb-3">
-              <span class="avatar brround mr-3 align-self-center" style="background-image: url(assets/images/faces/female/14.jpg)"></span>
-              <div>
-                <strong>rebica</strong> Suggestions for you
-                <div class="small text-muted">view profile</div>
-              </div>
-            </a>
-            <a href="#" class="dropdown-item d-flex pb-3">
-              <span class="avatar brround mr-3 align-self-center" style="background-image: url(assets/images/faces/male/1.jpg)"></span>
-              <div>
-                <strong>Devid robott</strong> sent you add request
-                <div class="small text-muted">view profile</div>
-              </div>
-            </a>
-
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item text-center text-muted-dark">View all contact list</a>
-          </div>
-        </div>
-        <div class="dropdown d-none d-md-flex mt-1">
-          <a class="nav-link icon" data-toggle="dropdown">
-            <i class="fa fa-bell-o"></i>
-            <span class="nav-unread bg-danger"></span>
-          </a>
-          <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-            <a href="#" class="dropdown-item d-flex pb-3">
-              <div class="notifyimg">
-                <i class="fa fa-thumbs-o-up"></i>
-              </div>
-              <div>
-                <strong>Someone likes our posts.</strong>
-                <div class="small text-muted">3 hours ago</div>
-              </div>
-            </a>
-            <a href="#" class="dropdown-item d-flex pb-3">
-              <div class="notifyimg">
-                <i class="fa fa-commenting-o"></i>
-              </div>
-              <div>
-                <strong> 3 New Comments</strong>
-                <div class="small text-muted">5  hour ago</div>
-              </div>
-            </a>
-            <a href="#" class="dropdown-item d-flex pb-3">
-              <div class="notifyimg">
-                <i class="fa fa-cogs"></i>
-              </div>
-              <div>
-                <strong> Server Rebooted.</strong>
-                <div class="small text-muted">45 mintues ago</div>
-              </div>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item text-center text-muted-dark">View all Notification</a>
-          </div>
-        </div>
-        <div class="dropdown d-none d-md-flex mt-1">
-          <a class="nav-link icon" data-toggle="dropdown">
-            <i class="fa fa-envelope-o"></i>
-            <span class=" nav-unread badge badge-info badge-pill">2</span>
-          </a>
-          <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-            <a href="#" class="dropdown-item text-center text-dark">2 New Messages</a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item d-flex pb-3">
-              <span class="avatar brround mr-3 align-self-center" style="background-image: url(assets/images/faces/male/41.jpg)"></span>
-              <div>
-                <strong>Madeleine</strong> Hey! there I' am available....
-                <div class="small text-muted">3 hours ago</div>
-              </div>
-            </a>
-            <a href="#" class="dropdown-item d-flex pb-3">
-              <span class="avatar brround mr-3 align-self-center" style="background-image: url(assets/images/faces/female/1.jpg)"></span>
-              <div>
-                <strong>Anthony</strong> New product Launching...
-                <div class="small text-muted">5  hour ago</div>
-              </div>
-            </a>
-            <a href="#" class="dropdown-item d-flex pb-3">
-              <span class="avatar brround mr-3 align-self-center" style="background-image: url(assets/images/faces/female/18.jpg)"></span>
-              <div>
-                <strong>Olivia</strong> New Schedule Realease......
-                <div class="small text-muted">45 mintues ago</div>
-              </div>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item text-center text-muted-dark">See all Messages</a>
-          </div>
-        </div>
         <div class="dropdown mt-1">
           <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
-            <span class="avatar avatar-md brround" style="background-image: url(assets/images/faces/female/25.jpg)"></span>
-            <span class="ml-2 d-none d-lg-block">
-              <span class="text-white">Oliva Jason</span>
+            <span class="d-none d-lg-block avatar avatar-md brround" style="background-image: url(assets/images/faces/male/25.jpg)"></span>
+            <span class="m-2" style="font-size: 20px;">
+              <span class="text-white">{{userData.username}}</span>              
             </span>
+            <i class="fa fa-chevron-down text-white" style="font-size: 20px;" ></i>
           </a>
           <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
             <a class="dropdown-item" href="#">
-              <i class="dropdown-icon mdi mdi-account-outline "></i> Profile
-            </a>
-            <a class="dropdown-item" href="#">
-              <i class="dropdown-icon  mdi mdi-settings"></i> Settings
-            </a>
-            <a class="dropdown-item" href="#">
-              <span class="float-right"><span class="badge badge-primary">6</span></span>
-              <i class="dropdown-icon mdi  mdi-message-outline"></i> Inbox
-            </a>
-            <a class="dropdown-item" href="#">
-              <i class="dropdown-icon mdi mdi-comment-check-outline"></i> Message
-            </a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">
-              <i class="dropdown-icon mdi mdi-compass-outline"></i> Need help?
-            </a>
-            <a class="dropdown-item" href="login.html">
-              <i class="dropdown-icon mdi  mdi-logout-variant"></i> Sign out
+              <i class="fa fa-user"></i> Perfil
+            </a>            
+            <a class="dropdown-item" href="#" (click)="signOut()">
+              <i class="fa fa-sign-out"></i> Cerrrar Sesión
             </a>
           </div>
         </div>

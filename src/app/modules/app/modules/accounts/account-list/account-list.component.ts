@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountsService } from '../../../services/accounts/accounts.service';
 
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-account-list',
   templateUrl: './account-list.component.html',
@@ -27,9 +27,21 @@ export class AccountListComponent implements OnInit {
   }
 
   createAccount(){
-      this.accountService.createAccount().subscribe(
-        (res) => this.accounts.push(res)
-      )
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Estás a punto de crear una cuenta bancaria.',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'No',
+      cancelButtonColor: 'Red'
+    }).then((result) => {
+      if (result.value) {
+        this.accountService.createAccount().subscribe(
+          (res) => this.accounts.push(res)
+        )
+      } 
+    })
   }
 
 }

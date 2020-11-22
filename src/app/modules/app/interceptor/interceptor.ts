@@ -12,11 +12,19 @@ export class Interceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     var userData = this.localStorage.getValue('userData');
     let customReq;
-    customReq = request.clone({
-      headers: request.headers
-              .set('Content-Type', 'application/json')
-              .set('Authorization', 'Bearer '+ userData.accessToken)
-    });
+    console.log(userData)
+    if(userData){
+      customReq = request.clone({
+        headers: request.headers
+                .set('Content-Type', 'application/json')
+                .set('Authorization', 'Bearer '+ userData.accessToken)
+      });
+    }else {
+      customReq = request.clone({
+        headers: request.headers
+                .set('Content-Type', 'application/json')
+      })
+    }
     return next.handle(customReq);
   }
 }
