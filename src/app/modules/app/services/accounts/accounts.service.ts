@@ -15,6 +15,10 @@ export class AccountsService {
     return this.http.get(`${environment.apiUrl}accounts`);
   }
 
+  public getMovements(accountNumber): Observable<any> {
+    return this.http.get(`${environment.apiUrl}accounts/${accountNumber}/movements`);
+  }
+
   public createAccount(): Observable<any> {
     return this.http.post(`${environment.apiUrl}accounts`,{});
   }

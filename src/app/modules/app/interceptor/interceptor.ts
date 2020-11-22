@@ -4,11 +4,15 @@ import { Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LocalService } from '../services/local-storage/local.service';
 import {catchError} from 'rxjs/internal/operators';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class Interceptor implements HttpInterceptor {
 
-  constructor(private localStorage: LocalService) { }
+  constructor(
+    private localStorage: LocalService,
+    private router: Router
+    ) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     var userData = this.localStorage.getValue('userData');
@@ -27,9 +31,11 @@ export class Interceptor implements HttpInterceptor {
     }
     return next.handle(customReq).pipe(
       catchError(err => {
-          if(err.type == 401){
+          if(err.status == 401){
             this.localStorage.clearToken();
+            this.router.navigate(['app/signIn']);
           }
+          
           return throwError(err);
       })
     );

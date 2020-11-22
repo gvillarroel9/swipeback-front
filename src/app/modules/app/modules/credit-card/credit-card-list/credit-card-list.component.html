@@ -26,8 +26,8 @@
                         <tbody>
                             <tr *ngFor="let creditCard of creditCards">
                                 <td>{{ creditCard.number }}</td>
-                                <td>{{ creditCard.limit }}</td>
-                                <td>{{ creditCard.balance }}</td>
+                                <td>{{ creditCard.limit | currency}}</td>
+                                <td>{{ creditCard.balance | currency}}</td>
                                 <td><button class="btn btn-info"><i class="fa fa-eye"></i></button></td>
                             </tr>
                         </tbody>

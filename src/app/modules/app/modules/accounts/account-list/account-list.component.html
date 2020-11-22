@@ -26,7 +26,7 @@
                             <tr *ngFor="let account of accounts">
                                 <td>{{account.number}}</td>
                                 <td>{{account.balance | currency}}</td>
-                                <td><button class="btn btn-info"><i class="fa fa-eye"></i></button></td>
+                                <td><a [routerLink]="['detail', account.number]" class="btn btn-info"><i class="fa fa-eye"></i></a></td>
                             </tr>
                         </tbody>
                     </table>
