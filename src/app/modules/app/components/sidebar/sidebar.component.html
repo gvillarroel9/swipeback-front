@@ -1,5 +1,5 @@
-<nav id="sidebar" class="nav-sidebar">
-  <ul class="list-unstyled components mb-0" id="accordion">
+<nav id="sidebar" class="nav-sidebar" style="height: 78vh;">
+  <ul class="list-unstyled components mb-0 p-0" id="accordion">
   
     <li *ngFor = "let navItem of navItems; let i = index" class="">
       
@@ -8,7 +8,7 @@
       <a *ngIf="navItem.dropdown" href="#navItem{{i}}" class="wave-effect accordion-toggle" data-toggle="collapse" aria-expanded="false">
         <i class="{{navItem.icon}} mr-2"></i> {{navItem.label}}
       </a>
-      <ul *ngIf="navItem.dropdown" class="collapse list-unstyled" id="navItem{{i}}" data-parent="#accordion">
+      <ul *ngIf="navItem.dropdown" class="collapse list-unstyled p-0" id="navItem{{i}}" data-parent="#accordion">
         <li *ngFor="let subNavItem of navItem.subNavItems">
           <a [routerLink]="[subNavItem.url]">{{subNavItem.label}}</a>
         </li>

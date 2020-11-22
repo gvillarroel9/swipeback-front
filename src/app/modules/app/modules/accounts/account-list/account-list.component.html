@@ -19,12 +19,14 @@
                             <tr>
                                 <th>Número de Cuenta</th>
                                 <th>Balance</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let account of accounts">
                                 <td>{{account.number}}</td>
                                 <td>{{account.balance | currency}}</td>
+                                <td><button class="btn btn-info"><i class="fa fa-eye"></i></button></td>
                             </tr>
                         </tbody>
                     </table>

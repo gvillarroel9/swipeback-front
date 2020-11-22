@@ -10323,7 +10323,7 @@ body.fixed-header .page {
 .header {
 	padding-top: .75rem;
 	padding-bottom: .75rem;
-	background: linear-gradient(to left,var(--primary),var(--accent));
+	background: linear-gradient(to right,white,var(--primary),var(--accent));
 }
 .header-bg {
 	background: #1643A3;
