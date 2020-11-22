@@ -16,7 +16,13 @@ export class SidebarComponent implements OnInit {
   }
 
   navItems = [
-    {label: 'Cuentas', url: 'account', icon: 'fa fa-bank' ,dropdown: false, subNavItems: []},
+    {label: 'Cuentas', url: 'account', icon: 'fa fa-bank' ,dropdown: true, 
+      subNavItems: [
+        {label: 'Mis cuentas', url: 'account'},
+        {label: 'Depositar', url: 'account/deposit'},
+        {label: 'Retirar', url: 'account/withdraw'},
+      ]
+    },
     {label: 'Tarjetas de Crédito', url: 'credit-card', icon: 'fa fa-credit-card' , dropdown: true, 
       subNavItems: [
         {label: 'Mis tarjetas', url: 'credit-card', icon: 'fa fa-credit-card'},

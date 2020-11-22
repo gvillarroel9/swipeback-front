@@ -19,4 +19,12 @@ export class AccountsService {
     return this.http.post(`${environment.apiUrl}accounts`,{});
   }
 
+  public deposit(body): Observable<any> {
+    return this.http.post(`${environment.apiUrl}accounts/deposit`, body);
+  }
+
+  public withdraw(body): Observable<any> {
+    return this.http.post(`${environment.apiUrl}accounts/withdraw`, body);
+  }
+
 }
