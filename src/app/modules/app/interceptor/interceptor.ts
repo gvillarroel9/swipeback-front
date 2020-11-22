@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LocalService } from '../services/local-storage/local.service';
+import {catchError} from 'rxjs/internal/operators';
 
 @Injectable()
 export class Interceptor implements HttpInterceptor {
@@ -24,6 +25,13 @@ export class Interceptor implements HttpInterceptor {
                 .set('Content-Type', 'application/json')
       })
     }
-    return next.handle(customReq);
+    return next.handle(customReq).pipe(
+      catchError(err => {
+          if(err.type == 401){
+            this.localStorage.clearToken();
+          }
+          return throwError(err);
+      })
+    );
   }
 }
