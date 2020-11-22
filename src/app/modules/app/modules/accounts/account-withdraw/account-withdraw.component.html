@@ -35,7 +35,7 @@
                                             {{withdrawForm.controls.accountNumber.value || 'Seleccione una cuenta'}}<span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" role="menu"> 
-                                            <li *ngFor="let account of accounts" (click)="setFormValue('accountNumber', account.number); setFormValue('balance',account.balance)"><a>{{account.number+'- Balance: '+ (account.balance | currency)}}</a></li>
+                                            <li *ngFor="let account of accounts" (click)="setFormValue('accountNumber', account.number); setFormValue('balance',account.balance)"><a>{{account.number+'---'}} <b>{{'Balance: '+(account.balance | currency)}}</b></a></li>
                                         </ul>
                                     </div>
                                 </div>
