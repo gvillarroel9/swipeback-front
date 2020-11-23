@@ -31,4 +31,8 @@ export class AccountsService {
     return this.http.post(`${environment.apiUrl}accounts/withdraw`, body);
   }
 
+  public transaction(body): Observable<any> {
+    return this.http.post(`${environment.apiUrl}transactions/in-bank`, body);
+  }
+
 }

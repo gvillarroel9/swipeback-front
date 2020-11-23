@@ -58,6 +58,7 @@
                                 <tr>
                                     <th class="text-center font-weight-bold">Fecha</th>
                                     <th class="text-center font-weight-bold">Referencia</th>
+                                    <th class="text-center font-weight-bold">Mensaje</th>
                                     <th class="text-center font-weight-bold">Monto</th>
                                 </tr>
                             </thead>
@@ -65,6 +66,7 @@
                                 <tr *ngFor="let trans of lastTransactions | slice: 0:5">
                                     <td class="text-center">{{trans.date | date: 'd/M/yy, h:mm a'}}</td>
                                     <td class="text-center">{{trans.ref}}</td>
+                                    <td class="text-center">{{trans.mesage}}</td>
                                     <td
                                         class="text-center font-weight-bold"
                                         [ngStyle]="{'color': trans.nature == 'DEBIT'? 'red': 'green'}"

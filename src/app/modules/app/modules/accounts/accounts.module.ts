@@ -9,13 +9,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AccountWithdrawComponent } from './account-withdraw/account-withdraw.component';
 import { AccountDetailComponent } from './account-detail/account-detail.component';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { AccountTransactionComponent } from './account-transaction/account-transaction.component';
 
 @NgModule({
   declarations: [
     AccountListComponent, 
     AccountDepositComponent,
     AccountWithdrawComponent,
-    AccountDetailComponent
+    AccountDetailComponent,
+    AccountTransactionComponent
   ],
   imports: [
     CommonModule,
