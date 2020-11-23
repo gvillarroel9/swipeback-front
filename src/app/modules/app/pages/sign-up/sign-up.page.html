@@ -103,7 +103,7 @@
                                 <div class="d-flex">
                                     <div class="btn-group mt-2 mb-2">
                                         <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                                            Tipo <span class="caret"></span>
+                                            {{signUpForm.controls.type.value || 'Tipo de Usuario'}} <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" role="menu"> 
                                             <li (click)="setFormValue('type', 'NATURAL')"><a>Natural</a></li>                                          
