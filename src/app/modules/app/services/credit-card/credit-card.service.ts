@@ -22,7 +22,7 @@ export class CreditCardService {
     return this.http.get(`${environment.apiUrl}credit-cards/${creditCardNumber}/movements`);
   }
 
-  public payment(payment: any): Observable<any>{
-    return this.http.post(`${environment.apiUrl}credit-cards/balance-payment`, payment);
+  public payment(body: any): Observable<any>{
+    return this.http.post(`${environment.apiUrl}credit-cards/balance-payment`, body);
   }
 }
