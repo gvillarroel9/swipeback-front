@@ -6,6 +6,8 @@ import { CreditCardService } from '../../services/credit-card/credit-card.servic
 import { CreditCardDetailComponent } from './credit-card-detail/credit-card-detail.component';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { CreditCardPaymentComponent } from './credit-card-payment/credit-card-payment.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AccountsService } from '../../services/accounts/accounts.service';
 
 
 
@@ -14,8 +16,9 @@ import { CreditCardPaymentComponent } from './credit-card-payment/credit-card-pa
   imports: [
     CommonModule,
     CreditCardRoutingModule,
-    NgbPaginationModule
+    NgbPaginationModule,
+    ReactiveFormsModule,
   ],
-  providers: [CreditCardService]
+  providers: [CreditCardService, AccountsService]
 })
 export class CreditCardModule { }
