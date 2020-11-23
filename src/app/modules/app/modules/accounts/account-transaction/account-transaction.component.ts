@@ -10,8 +10,11 @@ import { AccountsService } from '../../../services/accounts/accounts.service';
 })
 export class AccountTransactionComponent implements OnInit {
   transactionForm: FormGroup;
-  accounts: any = [];
+  accounts: any[] = [];
   accountsReady = false;
+  accountSelected = false;
+  doingTransaction = false;
+  transactionResult = undefined;
   constructor(
     private formBuilder: FormBuilder,
     private accountService: AccountsService
@@ -20,12 +23,31 @@ export class AccountTransactionComponent implements OnInit {
   ngOnInit(): void {
     this.createForm();
     this.getAccounts();
+    this.transactionForm.controls.fromAccountNumber.valueChanges.subscribe(
+      (value) => {
+        if (value) {
+          console.log('value', value);
+          const account = this.accounts.find(
+            (element) => element.number === value
+          );
+          this.transactionForm.controls.amount.setValidators([
+            Validators.max(account.balance),
+            Validators.min(0.01),
+            Validators.required,
+          ]);
+          this.transactionForm.updateValueAndValidity();
+          this.accountSelected = true;
+          this.transactionResult = undefined;
+        }
+      }
+    );
   }
 
   getAccounts() {
     this.accountService.getAccounts().subscribe((res) => {
       this.accounts = res;
       this.accountsReady = true;
+      console.log(res);
     });
   }
 
@@ -44,7 +66,10 @@ export class AccountTransactionComponent implements OnInit {
   }
 
   makeTransaction() {
-    console.log(this.transactionForm.value);
+    if (this.transactionForm.invalid || this.doingTransaction) {
+      return;
+    }
+
     Swal.fire({
       title: '¿Estás seguro?',
       text: `Realizar una transferencia por un monto de ${this.transactionForm.value.amount}
@@ -56,19 +81,28 @@ export class AccountTransactionComponent implements OnInit {
       cancelButtonColor: 'Red',
     }).then((result) => {
       if (result.value) {
+        this.doingTransaction = true;
+
         this.accountService.transaction(this.transactionForm.value).subscribe(
           (res) => {
+            console.log(res);
+
             this.accountsReady = false;
+            this.accountSelected = false;
             this.getAccounts();
-            this.createForm();
+            this.transactionForm.reset();
+            this.transactionResult = res;
+            console.log(res);
           },
           (err) => {
             this.showMessage(
-              'Hubo un error al realizar la transferencia',
+              err.error.message ?? 'Hubo un error al realizar la transferencia',
               'error'
             );
           },
           () => {
+            this.doingTransaction = false;
+
             this.showMessage(
               'La transferencia de fondos se ha realizado con exito',
               'success'

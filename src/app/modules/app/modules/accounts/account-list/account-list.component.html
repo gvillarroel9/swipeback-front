@@ -9,8 +9,7 @@
   <div class="row" *ngIf="accountsReady; else loader">
     <div class="col-md-12 col-lg-12">
       <div class="card">
-        <div class="card-header d-flex justify-content-between">
-          <h3 class="card-title">Todas mis cuentas</h3>
+        <div class="card-header d-flex justify-content-end">
           <button class="btn btn-primary" (click)="createAccount()">
             Crear Cuenta
           </button>
@@ -33,7 +32,7 @@
               >
                 <td>{{ account.number }}</td>
                 <td>{{ account.balance | currency }}</td>
-                <td>
+                <td class="d-flex justify-content-center">
                   <a
                     [routerLink]="['detail', account.number]"
                     class="btn btn-info"
