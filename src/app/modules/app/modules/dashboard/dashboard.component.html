@@ -62,7 +62,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let trans of lastTransactions | slice: 0:8">
+                                <tr *ngFor="let trans of lastTransactions | slice: 0:5">
                                     <td class="text-center">{{trans.date | date: 'd/M/yy, h:mm a'}}</td>
                                     <td class="text-center">{{trans.ref}}</td>
                                     <td
