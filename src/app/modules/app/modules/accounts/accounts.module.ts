@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AccountsRoutingModule } from './accounts-routing.module';
 import { AccountListComponent } from './account-list/account-list.component';
 import { AccountsService } from '../../services/accounts/accounts.service';
-import { AccountDepositComponent } from './account-deposit/account-deposit.component'
+import { AccountDepositComponent } from './account-deposit/account-deposit.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AccountWithdrawComponent } from './account-withdraw/account-withdraw.component';
 import { AccountDetailComponent } from './account-detail/account-detail.component';
@@ -13,20 +13,18 @@ import { AccountTransactionComponent } from './account-transaction/account-trans
 
 @NgModule({
   declarations: [
-    AccountListComponent, 
+    AccountListComponent,
     AccountDepositComponent,
     AccountWithdrawComponent,
     AccountDetailComponent,
-    AccountTransactionComponent
+    AccountTransactionComponent,
   ],
   imports: [
     CommonModule,
     AccountsRoutingModule,
     ReactiveFormsModule,
-    NgbPaginationModule
+    NgbPaginationModule,
   ],
-  providers: [
-    AccountsService
-  ]
+  providers: [AccountsService],
 })
-export class AccountsModule { }
+export class AccountsModule {}

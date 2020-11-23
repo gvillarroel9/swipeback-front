@@ -1,40 +1,60 @@
 <div class="content-area">
-    <div class="page-header">
-        <h4 class="page-title">Tarjetas de crédito</h4>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Swipebank</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Tarjetas de crédito</li>
-        </ol>
-    </div>
-    <div class="row">
-        <div class="col-md-12 col-lg-12">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between">
-                    <h3 class="card-title">Todas mis tarjetas de crédito</h3>
-                    <button class="btn btn-primary" (click)="createCreditCard()"> Crear tarjeta de crédito</button>
-                </div>
-                <div class="table-responsive">
-                    <table class="table card-table table-vcenter text-nowrap">
-                        <thead >
-                            <tr>
-                                <th>Número tarjeta</th>
-                                <th>Límite</th>
-                                <th>Balance</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let creditCard of creditCards">
-                                <td>{{ creditCard.number }}</td>
-                                <td>{{ creditCard.limit | currency}}</td>
-                                <td>{{ creditCard.balance | currency}}</td>
-                                <td><button class="btn btn-info"><i class="fa fa-eye"></i></button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <!-- table-responsive -->
-            </div>
+  <div class="page-header">
+    <h4 class="page-title">Tarjetas de crédito</h4>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Swipebank</a></li>
+      <li class="breadcrumb-item active" aria-current="page">
+        Tarjetas de crédito
+      </li>
+    </ol>
+  </div>
+  <div class="row" *ngIf="creditCardsReady; else loader">
+    <div class="col-md-12 col-lg-12">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between">
+          <h3 class="card-title">Todas mis tarjetas de crédito</h3>
+          <button class="btn btn-primary" (click)="createCreditCard()">
+            Crear tarjeta de crédito
+          </button>
         </div>
+        <div class="table-responsive">
+          <table class="table card-table table-vcenter text-nowrap">
+            <thead>
+              <tr>
+                <th>Número tarjeta</th>
+                <th>Límite</th>
+                <th>Balance</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let creditCard of creditCards">
+                <td>{{ creditCard.number }}</td>
+                <td>{{ creditCard.limit | currency }}</td>
+                <td>{{ creditCard.balance | currency }}</td>
+                <td>
+                  <button class="btn btn-info">
+                    <i class="fa fa-eye"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- table-responsive -->
+      </div>
     </div>
+  </div>
+  <ng-template #loader>
+    <div class="row">
+      <div class="col-12 text-center">
+        <div class="dimmer active">
+          <div class="spinner2">
+            <div class="cube1"></div>
+            <div class="cube2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
 </div>

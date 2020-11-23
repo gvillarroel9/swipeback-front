@@ -5,14 +5,13 @@ import { AccountsService } from '../../../services/accounts/accounts.service';
 @Component({
   selector: 'app-account-detail',
   templateUrl: './account-detail.component.html',
-  styleUrls: ['./account-detail.component.css']
+  styleUrls: ['./account-detail.component.css'],
 })
 export class AccountDetailComponent implements OnInit {
-
   constructor(
     private route: ActivatedRoute,
     private accountService: AccountsService
-  ) { }
+  ) {}
 
   accountInfo: any;
   page: number = 1;
@@ -23,16 +22,13 @@ export class AccountDetailComponent implements OnInit {
     this.getAccountMovements(accountNumber);
   }
 
-  getAccountMovements(accountNumber){
+  getAccountMovements(accountNumber) {
     this.accountService.getMovements(accountNumber).subscribe(
       (res) => {
         res.transactions.reverse();
         this.accountInfo = res;
       },
-      (err) => {
-
-      }
+      (err) => {}
     );
   }
-
 }
