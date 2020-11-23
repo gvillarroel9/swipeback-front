@@ -16,6 +16,7 @@ export class SidebarComponent implements OnInit {
   }
 
   navItems = [
+    {label: 'Resumen', url: 'dashboard', icon: 'fa fa-dashboard' ,dropdown: false},
     {label: 'Cuentas', url: 'account', icon: 'fa fa-bank' ,dropdown: true, 
       subNavItems: [
         {label: 'Mis cuentas', url: 'account'},
