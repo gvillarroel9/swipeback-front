@@ -10,6 +10,8 @@ import { CreditCardService } from '../../../services/credit-card/credit-card.ser
 export class CreditCardDetailComponent implements OnInit {
 
   public creditCardInfo: any;
+  public page: number = 1;
+  public pageSize: number = 5;
 
   constructor(private route: ActivatedRoute, private creditCardService: CreditCardService) { }
 

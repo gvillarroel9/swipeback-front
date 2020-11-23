@@ -4,6 +4,7 @@ import { CreditCardListComponent } from './credit-card-list/credit-card-list.com
 import { CreditCardRoutingModule } from './credit-card-routing.module';
 import { CreditCardService } from '../../services/credit-card/credit-card.service';
 import { CreditCardDetailComponent } from './credit-card-detail/credit-card-detail.component';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -11,7 +12,8 @@ import { CreditCardDetailComponent } from './credit-card-detail/credit-card-deta
   declarations: [CreditCardListComponent, CreditCardDetailComponent],
   imports: [
     CommonModule,
-    CreditCardRoutingModule
+    CreditCardRoutingModule,
+    NgbPaginationModule
   ],
   providers: [CreditCardService]
 })

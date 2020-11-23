@@ -15,5 +15,43 @@
         </div>
     </div>
 
-    
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="table card-table table-vcenter text-nowrap">
+                        <thead>
+                            <tr>
+                                <th class="text-center font-weight-bold">Fecha</th>
+                                <th class="text-center font-weight-bold">Referencia</th>
+                                <th class="text-center font-weight-bold">Monto</th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                            <tr *ngFor="let trans of creditCardInfo.transactions | slice: (page-1) * pageSize : page * pageSize">
+                                <td class="text-center">{{trans.date | date: 'd/M/yy, h:mm a'}}</td>
+                                <td class="text-center">{{trans.ref}}</td>
+                                <td
+                                    class="text-center font-weight-bold"
+                                    [ngStyle]="{'color': trans.nature == 'DEBIT'? 'red': 'green'}"
+                                >
+                                    <i [ngClass]="trans.nature == 'DEBIT'? 'fa fa-minus': 'fa fa-plus'"></i>
+                                    {{trans.amount | currency}}
+                                </td>                                
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <ngb-pagination
+                        [(page)]="page"
+                        [pageSize]="pageSize"
+                        [collectionSize]="creditCardInfo.transactions.length">
+                    </ngb-pagination>
+                </div>
+                <!-- table-responsive -->
+            </div>
+        </div>
+    </div>
 </div>
