@@ -20,17 +20,18 @@ import { Interceptor } from './interceptor/interceptor';
     FooterComponent,
     SidebarComponent,
     AppLayoutComponent,
-    HeaderComponent],
+    HeaderComponent,
+  ],
   imports: [
     CommonModule,
     HttpClientModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [
     AuthService,
     { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
-  ]
+  ],
 })
-export class AppModule { }
+export class AppModule {}

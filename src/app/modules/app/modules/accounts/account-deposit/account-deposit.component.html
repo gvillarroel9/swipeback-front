@@ -1,75 +1,120 @@
-<div class=" content-area">
-    <div class="page-header">
-        <h4 class="page-title">Depositar</h4>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">Swipebank</li>
-            <li class="breadcrumb-item" aria-current="page">Cuentas</li>
-            <li class="breadcrumb-item active font-weight-bold" aria-current="page">Depositar</li>
-        </ol>
-    </div>
-    <div class="row">
-        <div class="col-md-12 col-lg-12">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between">
-                    <h3 class="card-title">Depositar</h3>
-                </div>
-                <div class="card-body">
-                    <form [formGroup]="depositForm">
-                        <div class="row">                            
-                            <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label">Cuenta a depositar:</label>
-                                    <div class="btn-group mt-2 mb-2">
-                                        
-                                        <button *ngIf="accounts.length" type="button" class="btn btn-info dropdown-toggle btn-block" data-toggle="dropdown">
-                                            {{depositForm.controls.accountNumber.value || 'Seleccione una cuenta'}}<span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu"> 
-                                            <li *ngFor="let account of accounts" (click)="setFormValue('accountNumber', account.number); setFormValue('balance',account.balance)"><a>{{account.number+'---'}} <b>{{'Balance: '+(account.balance | currency)}}</b></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6">                           
-                                <div class="form-group">
-                                    <label class="form-label mb-3">Monto a Depositar:</label>
-                                    <input 
-                                        formControlName="amount" 
-                                        type="number"
-                                        class="form-control" 
-                                        placeholder=""
-                                        [class.invalid-input]="depositForm.controls.amount.invalid && depositForm.controls.amount.touched"
-                                    >
-                                    <div class="input-error" 
-                                    *ngIf="depositForm.controls.amount.invalid && depositForm.controls.amount.touched">
-                                        Requerido
-                                    </div>
-                                </div>
-                            </div>
-                            <div *ngIf="depositForm.controls.balance.value" class="col-12 d-flex justify-content-around">
-                                <div>
-                                    <h5 class="font-weight-bold">Cuenta seleccionada:</h5>
-                                    <p>{{depositForm.controls.accountNumber.value}}</p>
-                                </div>
-                                <div>
-                                    <h5 class="font-weight-bold">Balance:</h5>
-                                    <p>{{depositForm.controls.balance.value | currency}}</p>
-                                </div>                                
-                            </div>
-                            
-                            
-                            <div class="col-12">
-                                <button 
-                                    type="button" 
-                                    (click)="deposit()" 
-                                    class="btn btn-primary btn-block"
-                                >Depositar</button>
-                            </div>
-                        </div>
-                    </form>     
-                </div>
-                
-            </div>
+<div class="content-area">
+  <div class="page-header">
+    <h4 class="page-title">Depositar</h4>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">Swipebank</li>
+      <li class="breadcrumb-item" aria-current="page">Cuentas</li>
+      <li class="breadcrumb-item active font-weight-bold" aria-current="page">
+        Depositar
+      </li>
+    </ol>
+  </div>
+  <div class="row" *ngIf="accountsReady; else loader">
+    <div class="col-md-12 col-lg-12">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between">
+          <h3 class="card-title">Depositar</h3>
         </div>
+        <div class="card-body">
+          <form [formGroup]="depositForm">
+            <div class="row">
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <label class="form-label">Cuenta destino:</label>
+                  <div class="btn-group mt-2 mb-2">
+                    <button
+                      *ngIf="accounts.length"
+                      type="button"
+                      class="btn btn-info dropdown-toggle btn-block"
+                      data-toggle="dropdown"
+                    >
+                      {{
+                        depositForm.controls.accountNumber.value ||
+                          "Seleccione una cuenta"
+                      }}<span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li
+                        *ngFor="let account of accounts"
+                        (click)="
+                          setFormValue('accountNumber', account.number);
+                          setFormValue('balance', account.balance)
+                        "
+                      >
+                        <a
+                          >{{ account.number + "---" }}
+                          <b>{{
+                            "Balance: " + (account.balance | currency)
+                          }}</b></a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <label class="form-label mb-3">Monto a Depositar:</label>
+                  <input
+                    formControlName="amount"
+                    type="number"
+                    class="form-control"
+                    placeholder=""
+                    [class.invalid-input]="
+                      depositForm.controls.amount.invalid &&
+                      depositForm.controls.amount.touched
+                    "
+                  />
+                  <div
+                    class="input-error"
+                    *ngIf="
+                      depositForm.controls.amount.invalid &&
+                      depositForm.controls.amount.touched
+                    "
+                  >
+                    Requerido
+                  </div>
+                </div>
+              </div>
+              <div
+                *ngIf="depositForm.controls.balance.value"
+                class="col-12 d-flex justify-content-around"
+              >
+                <div>
+                  <h5 class="font-weight-bold">Cuenta seleccionada:</h5>
+                  <p>{{ depositForm.controls.accountNumber.value }}</p>
+                </div>
+                <div>
+                  <h5 class="font-weight-bold">Balance:</h5>
+                  <p>{{ depositForm.controls.balance.value | currency }}</p>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <button
+                  type="button"
+                  (click)="deposit()"
+                  class="btn btn-primary btn-block"
+                >
+                  Depositar
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
+  </div>
+  <ng-template #loader>
+    <div class="row">
+      <div class="col-12 text-center">
+        <div class="dimmer active">
+          <div class="spinner2">
+            <div class="cube1"></div>
+            <div class="cube2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
 </div>

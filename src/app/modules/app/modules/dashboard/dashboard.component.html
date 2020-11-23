@@ -1,89 +1,117 @@
 <div class="">
-    <div class="page-header">
-        <h4 class="page-title"> ¡Hola {{userInfo.fullName}} este es tu resumen !</h4>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Swipebank</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Resumen</li>
-        </ol>
+  <div class="page-header">
+    <h4 class="page-title">
+      ¡Hola {{ userInfo.fullName | titlecase }} este es tu resumen!
+    </h4>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Swipebank</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Resumen</li>
+    </ol>
+  </div>
+  <div
+    class="row"
+    *ngIf="
+      creditCardsResumeReady && accountBalanceReady && transactionsReady;
+      else loader
+    "
+  >
+    <div class="col-sm-12 col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="font-weight-bold text-black mb-0">Tarjetas de crédito</h4>
+        </div>
+        <div class="card-body">
+          <canvas
+            baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [legend]="barChartLegend"
+            [chartType]="barChartType"
+          >
+          </canvas>
+        </div>
+      </div>
     </div>
+    <div class="col-sm-12 col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="font-weight-bold text-black mb-0">
+            Balance total de cuentas: {{ totalBalance | currency }}
+          </h4>
+        </div>
+        <div class="card-body">
+          <canvas
+            baseChart
+            [data]="pieChartData"
+            [labels]="pieChartLabels"
+            [chartType]="pieChartType"
+            [options]="pieChartOptions"
+            [colors]="pieChartColors"
+            [legend]="pieChartLegend"
+          >
+          </canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="font-weight-bold text-black mb-0">
+            Últimas Transacciones
+          </h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table card-table table-vcenter text-nowrap">
+              <thead>
+                <tr>
+                  <th class="text-center font-weight-bold">Fecha</th>
+                  <th class="text-center font-weight-bold">Referencia</th>
+                  <th class="text-center font-weight-bold">Mensaje</th>
+                  <th class="text-center font-weight-bold">Monto</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let trans of lastTransactions | slice: 0:5">
+                  <td class="text-center">
+                    {{ trans.date | date: "d/M/yy, h:mm a" }}
+                  </td>
+                  <td class="text-center">{{ trans.ref }}</td>
+                  <td class="text-center">{{ trans.mesage }}</td>
+                  <td
+                    class="text-center font-weight-bold"
+                    [ngStyle]="{
+                      color: trans.nature == 'DEBIT' ? 'red' : 'green'
+                    }"
+                  >
+                    <i
+                      [ngClass]="
+                        trans.nature == 'DEBIT' ? 'fa fa-minus' : 'fa fa-plus'
+                      "
+                    ></i>
+                    {{ trans.amount | currency }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #loader>
     <div class="row">
-        <div class="col-sm-12 col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="font-weight-bold text-black mb-0">
-                        Tarjetas de crédito
-                    </h4>
-                </div>
-                <div class="card-body">
-                    <canvas baseChart
-                        [datasets]="barChartData"
-                        [labels]="barChartLabels"
-                        [options]="barChartOptions"
-                        [legend]="barChartLegend"
-                        [chartType]="barChartType">
-                    </canvas>
-                </div>                
-            </div>
-        </div>        
-        <div class="col-sm-12 col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="font-weight-bold text-black mb-0">
-                        Balance total de cuentas: {{totalBalance | currency}} 
-                    </h4>
-                </div>
-                <div class="card-body">
-                    <canvas baseChart
-                        [data]="pieChartData"
-                        [labels]="pieChartLabels"
-                        [chartType]="pieChartType"
-                        [options]="pieChartOptions"
-                        [colors]="pieChartColors"
-                        [legend]="pieChartLegend">
-                    </canvas>
-                </div>                
-            </div>
+      <div class="col-12 text-center">
+        <div class="dimmer active">
+          <div class="spinner2">
+            <div class="cube1"></div>
+            <div class="cube2"></div>
+          </div>
         </div>
-        <div class="col-sm-12 col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="font-weight-bold text-black mb-0">
-                        Últimas Transacciones
-                    </h4>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table card-table table-vcenter text-nowrap">
-                            <thead >
-                                <tr>
-                                    <th class="text-center font-weight-bold">Fecha</th>
-                                    <th class="text-center font-weight-bold">Referencia</th>
-                                    <th class="text-center font-weight-bold">Mensaje</th>
-                                    <th class="text-center font-weight-bold">Monto</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let trans of lastTransactions | slice: 0:5">
-                                    <td class="text-center">{{trans.date | date: 'd/M/yy, h:mm a'}}</td>
-                                    <td class="text-center">{{trans.ref}}</td>
-                                    <td class="text-center">{{trans.mesage}}</td>
-                                    <td
-                                        class="text-center font-weight-bold"
-                                        [ngStyle]="{'color': trans.nature == 'DEBIT'? 'red': 'green'}"
-                                    >
-                                        <i [ngClass]="trans.nature == 'DEBIT'? 'fa fa-minus': 'fa fa-plus'"></i>
-                                        {{trans.amount | currency}}
-                                    </td>                                
-                                </tr>
-                            </tbody>
-                        </table>                    
-                    </div>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+  </ng-template>
 </div>
 
-<div>
-    
-</div>
+<div></div>

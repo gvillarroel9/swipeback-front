@@ -1,106 +1,198 @@
-<div class=" content-area">
-    <div class="page-header">
-        <h4 class="page-title">Transferencia de Fondos</h4>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">Swipebank</li>
-            <li class="breadcrumb-item" aria-current="page">Cuentas</li>
-            <li class="breadcrumb-item active font-weight-bold" aria-current="page">Transferencias</li>
-        </ol>
-    </div>
-    <div class="row">
-        <div class="col-md-12 col-lg-12">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between">
-                    <h3 class="card-title">Transferencias</h3>
-                </div>
-                <div class="card-body">
-                    <form [formGroup]="transactionForm">
-                        <div class="row">                            
-                            <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label">Cuenta a descontar:</label>
-                                    <div class="btn-group mt-2 mb-2">
-                                        
-                                        <button *ngIf="accounts.length" type="button" class="btn btn-info dropdown-toggle btn-block" data-toggle="dropdown">
-                                            {{transactionForm.controls.fromAccountNumber.value || 'Seleccione una cuenta'}}<span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu"> 
-                                            <li *ngFor="let account of accounts" (click)="setFormValue('fromAccountNumber', account.number); setFormValue('balance',account.balance)"><a>{{account.number+'---'}} <b>{{'Balance: '+(account.balance | currency)}}</b></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6">                           
-                                <div class="form-group">
-                                    <label class="form-label mb-3">Numero de cuenta del beneficiario:</label>
-                                    <input 
-                                        formControlName="toAccountNumber" 
-                                        type="text"
-                                        class="form-control" 
-                                        placeholder=""
-                                        [class.invalid-input]="transactionForm.controls.toAccountNumber.invalid && transactionForm.controls.toAccountNumber.touched"
-                                    >
-                                    <div class="input-error" 
-                                    *ngIf="transactionForm.controls.toAccountNumber.invalid && transactionForm.controls.toAccountNumber.touched">
-                                        Requerido
-                                    </div>
-                                </div>
-                            </div>
-                            <div *ngIf="transactionForm.controls.balance.value" class="col-12 d-flex justify-content-around">
-                                <div>
-                                    <h5 class="font-weight-bold">Cuenta a descontar seleccionada:</h5>
-                                    <p>{{transactionForm.controls.fromAccountNumber.value}}</p>
-                                </div>
-                                <div>
-                                    <h5 class="font-weight-bold">Balance:</h5>
-                                    <p>{{transactionForm.controls.balance.value | currency}}</p>
-                                </div>                                
-                            </div>
-                            <div class="col-12 col-md-6">                           
-                                <div class="form-group">
-                                    <label class="form-label mb-3">Monto a transferir:</label>
-                                    <input 
-                                        formControlName="amount" 
-                                        type="number"
-                                        class="form-control" 
-                                        placeholder=""
-                                        [class.invalid-input]="transactionForm.controls.amount.invalid && transactionForm.controls.amount.touched"
-                                    >
-                                    <div class="input-error" 
-                                    *ngIf="transactionForm.controls.amount.invalid && transactionForm.controls.amount.touched">
-                                        Requerido
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6">                           
-                                <div class="form-group">
-                                    <label class="form-label mb-3">Motivo del pago:</label>
-                                    <input 
-                                        formControlName="description" 
-                                        type="text"
-                                        class="form-control" 
-                                        placeholder=""
-                                        [class.invalid-input]="transactionForm.controls.description.invalid && transactionForm.controls.description.touched"
-                                    >
-                                    <div class="input-error" 
-                                    *ngIf="transactionForm.controls.description.invalid && transactionForm.controls.description.touched">
-                                        Requerido
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="col-12">
-                                <button 
-                                    type="button"
-                                    (click)="makeTransaction()" 
-                                    class="btn btn-primary btn-block"
-                                >Transferir</button>
-                            </div>
-                        </div>
-                    </form>     
-                </div>
-                
-            </div>
+<div class="content-area">
+  <div class="page-header">
+    <h4 class="page-title">Transferencia de Fondos</h4>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">Swipebank</li>
+      <li class="breadcrumb-item" aria-current="page">Cuentas</li>
+      <li class="breadcrumb-item active font-weight-bold" aria-current="page">
+        Realizar transferencia
+      </li>
+    </ol>
+  </div>
+  <div class="row" *ngIf="accountsReady; else loader">
+    <div class="col-md-12 col-lg-12">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between">
+          <h3 class="card-title">Realizar transferencia</h3>
         </div>
+        <div class="card-body">
+          <form [formGroup]="transactionForm">
+            <div class="row">
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <label class="form-label">Cuenta a descontar:</label>
+                  <div class="btn-group mt-2 mb-2">
+                    <button
+                      *ngIf="accounts.length"
+                      type="button"
+                      class="btn btn-info dropdown-toggle btn-block"
+                      data-toggle="dropdown"
+                    >
+                      {{
+                        transactionForm.controls.fromAccountNumber.value ||
+                          "Seleccione una cuenta"
+                      }}<span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li
+                        *ngFor="let account of accounts"
+                        (click)="
+                          setFormValue('fromAccountNumber', account.number);
+                          setFormValue('balance', account.balance)
+                        "
+                      >
+                        <a
+                          >{{ account.number + "---" }}
+                          <b>{{
+                            "Balance: " + (account.balance | currency)
+                          }}</b></a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                *ngIf="accountSelected"
+                class="col-12 d-flex justify-content-between text-muted"
+              >
+                <div>
+                  <h5 class="font-weight-bold">
+                    Cuenta a debitar seleccionada:
+                  </h5>
+                  <p>{{ transactionForm.controls.fromAccountNumber.value }}</p>
+                </div>
+                <div>
+                  <h5 class="font-weight-bold">Balance:</h5>
+                  <p>{{ transactionForm.controls.balance.value | currency }}</p>
+                </div>
+              </div>
+              <hr />
+              <div class="col-12 col-md-6" *ngIf="accountSelected">
+                <div class="form-group">
+                  <label class="form-label mb-3"
+                    >Numero de cuenta del beneficiario:</label
+                  >
+                  <input
+                    formControlName="toAccountNumber"
+                    type="text"
+                    class="form-control"
+                    placeholder="Ejemplo: 1231-1234-1234-1234-12312"
+                    [class.invalid-input]="
+                      transactionForm.controls.toAccountNumber.invalid &&
+                      transactionForm.controls.toAccountNumber.touched
+                    "
+                  />
+                  <div
+                    class="input-error"
+                    *ngIf="
+                      transactionForm.controls.toAccountNumber.invalid &&
+                      transactionForm.controls.toAccountNumber.touched
+                    "
+                  >
+                    Requerido
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-6" *ngIf="accountSelected">
+                <div class="form-group">
+                  <label class="form-label mb-3">Monto a transferir:</label>
+                  <input
+                    formControlName="amount"
+                    type="number"
+                    class="form-control"
+                    placeholder=""
+                    [class.invalid-input]="
+                      transactionForm.controls.amount.invalid &&
+                      transactionForm.controls.amount.touched
+                    "
+                  />
+                  <div
+                    class="input-error"
+                    *ngIf="
+                      transactionForm.controls.amount.invalid &&
+                      transactionForm.controls.amount.touched
+                    "
+                  >
+                    <p *ngIf="transactionForm.controls.amount.errors.required">
+                      Requerido
+                    </p>
+                    <p *ngIf="transactionForm.controls.amount.errors.max">
+                      Saldo de la cuenta superado
+                    </p>
+                    <p *ngIf="transactionForm.controls.amount.errors.min">
+                      Minimo a transferir 0.01
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-6" *ngIf="accountSelected">
+                <div class="form-group">
+                  <label class="form-label mb-3">Motivo del pago:</label>
+                  <input
+                    formControlName="description"
+                    type="text"
+                    class="form-control"
+                    placeholder=""
+                    [class.invalid-input]="
+                      transactionForm.controls.description.invalid &&
+                      transactionForm.controls.description.touched
+                    "
+                  />
+                  <div
+                    class="input-error"
+                    *ngIf="
+                      transactionForm.controls.description.invalid &&
+                      transactionForm.controls.description.touched
+                    "
+                  >
+                    Requerido
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12" *ngIf="accountSelected">
+                <button
+                  type="button"
+                  (click)="makeTransaction()"
+                  class="btn btn-primary btn-block"
+                  [disabled]="transactionForm.invalid || doingTransaction"
+                >
+                  {{ doingTransaction ? "Transfiriendo..." : "Transferir" }}
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
+  </div>
+  <ng-template #loader>
+    <div class="row">
+      <div class="col-12 text-center">
+        <div class="dimmer active">
+          <div class="spinner2">
+            <div class="cube1"></div>
+            <div class="cube2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <div class="row" *ngIf="transactionResult">
+    <div class="col-md-12 col-lg-12">
+      <div class="card">
+        <div class="card-header d-flex justify-content-center">
+          <h3 class="card-title">Resultado de transferencia</h3>
+        </div>
+        <div class="card-body">
+          <p><b>Fecha: </b>{{ transactionResult.date | date }}</p>
+          <p><b>Monto: </b>{{ transactionResult.amount | currency }}</p>
+          <p><b>Referencia: </b>{{ transactionResult.ref }}</p>
+          <p><b>Descripción: </b>{{ transactionResult.mesage }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

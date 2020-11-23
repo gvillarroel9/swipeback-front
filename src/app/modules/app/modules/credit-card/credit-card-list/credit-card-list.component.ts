@@ -5,22 +5,21 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-credit-card-list',
   templateUrl: './credit-card-list.component.html',
-  styleUrls: ['./credit-card-list.component.css']
+  styleUrls: ['./credit-card-list.component.css'],
 })
 export class CreditCardListComponent {
-
   public creditCards = [];
-  constructor(private _creditCardService: CreditCardService) { 
-    this._creditCardService.getCreditCards().subscribe(res => {
+  creditCardsReady = false;
+  constructor(private _creditCardService: CreditCardService) {
+    this._creditCardService.getCreditCards().subscribe((res) => {
       this.creditCards = res;
+      this.creditCardsReady = true;
     });
   }
 
-  ngOnInit(): void {
-  }
-  
-  
-  public createCreditCard(){
+  ngOnInit(): void {}
+
+  public createCreditCard() {
     Swal.fire({
       title: '¿Estás seguro?',
       text: 'Estás a punto de crear una tarjeta de crédito.',
@@ -28,15 +27,15 @@ export class CreditCardListComponent {
       showCancelButton: true,
       confirmButtonText: 'Sí',
       cancelButtonText: 'No',
-      cancelButtonColor: 'Red'
+      cancelButtonColor: 'Red',
     }).then((result) => {
       if (result.value) {
-        this._creditCardService.postCreditCard().subscribe( res => {
+        this._creditCardService.postCreditCard().subscribe((res) => {
           this.creditCards.push(res);
         });
         // For more information about handling dismissals please visit
         // https://sweetalert2.github.io/#handling-dismissals
-      } 
-  })
+      }
+    });
   }
 }
