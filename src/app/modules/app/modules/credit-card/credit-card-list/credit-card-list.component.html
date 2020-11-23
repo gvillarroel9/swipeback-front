@@ -28,7 +28,7 @@
                                 <td>{{ creditCard.number }}</td>
                                 <td>{{ creditCard.limit | currency}}</td>
                                 <td>{{ creditCard.balance | currency}}</td>
-                                <td><button class="btn btn-info"><i class="fa fa-eye"></i></button></td>
+                                <td><a [routerLink]="['detail', creditCard.number]" class="btn btn-info"><i class="fa fa-eye"></i></a></td>
                             </tr>
                         </tbody>
                     </table>
