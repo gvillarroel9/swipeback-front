@@ -28,7 +28,7 @@ export class SidebarComponent implements OnInit {
     {label: 'Tarjetas de Crédito', url: 'credit-card', icon: 'fa fa-credit-card' , dropdown: true, 
       subNavItems: [
         {label: 'Mis tarjetas', url: 'credit-card', icon: 'fa fa-credit-card'},
-        {label: 'Pagar', url: 'credit-card/pay', icon: 'fa fa-credit-card'},
+        {label: 'Pagar', url: 'credit-card/payment', icon: 'fa fa-credit-card'},
       ]
     },
   ];
