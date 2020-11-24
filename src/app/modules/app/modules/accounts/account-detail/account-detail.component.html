@@ -29,6 +29,7 @@
                             <tr *ngFor="let trans of accountInfo.transactions | slice: (page-1) * pageSize : page * pageSize">
                                 <td class="text-center">{{trans.date | date: 'd/M/yy, h:mm a'}}</td>
                                 <td class="text-center">{{trans.ref}}</td>
+                                <td class="text-center">{{trans.mesage}}</td>
                                 <td
                                     class="text-center font-weight-bold"
                                     [ngStyle]="{'color': trans.nature == 'DEBIT'? 'red': 'green'}"
