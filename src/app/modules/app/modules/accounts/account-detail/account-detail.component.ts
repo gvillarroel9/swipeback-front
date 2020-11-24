@@ -17,6 +17,7 @@ export class AccountDetailComponent implements OnInit {
   page: number = 1;
   pageSize: number = 5;
   infoReady = false;
+  transactions: [] = [];
 
   ngOnInit(): void {
     const accountNumber = this.route.snapshot.params.id;
@@ -24,13 +25,22 @@ export class AccountDetailComponent implements OnInit {
   }
 
   getAccountMovements(accountNumber) {
-    this.accountService.getMovements(accountNumber).subscribe(
+    this.accountService.getAccount(accountNumber).subscribe(
       (res) => {
-        res.transactions.reverse();
+        // res.transactions.reverse();
         this.accountInfo = res;
         this.infoReady = true;
+        this.getMovements(this.accountInfo.id);
       },
       (err) => {}
     );
+  }
+
+  getMovements(accountId) {
+    this.accountService.getMovements(accountId).subscribe((res) => {
+      console.log(res);
+
+      this.transactions = res;
+    });
   }
 }

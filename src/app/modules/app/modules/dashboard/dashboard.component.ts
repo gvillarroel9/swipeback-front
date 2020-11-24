@@ -90,7 +90,7 @@ export class DashboardComponent implements OnInit {
         console.log(account.transactions);
         this.lastTransactions = [
           ...this.lastTransactions,
-          ...account.transactions,
+          ...(account.transactions ?? []),
         ];
       });
       this.accountBalanceReady = true;
