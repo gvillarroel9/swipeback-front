@@ -12,7 +12,8 @@ export class AccountWithdrawComponent implements OnInit {
   withdrawForm: FormGroup;
   accounts: any = [];
   accountsReady = false;
-
+  accountSelected = false;
+  doingWithdraw = false;
   constructor(
     private formBuilder: FormBuilder,
     private accountService: AccountsService
@@ -26,6 +27,8 @@ export class AccountWithdrawComponent implements OnInit {
   getAccounts() {
     this.accountService.getAccounts().subscribe((res) => {
       this.accounts = res;
+      console.log('seeting', res);
+
       this.accountsReady = true;
     });
   }
@@ -35,6 +38,21 @@ export class AccountWithdrawComponent implements OnInit {
       accountNumber: ['', Validators.required],
       amount: ['', Validators.required],
       balance: [''],
+    });
+
+    this.withdrawForm.controls.accountNumber.valueChanges.subscribe((value) => {
+      this.accountSelected = true;
+      if (value) {
+        const account = this.accounts.find(
+          (element) => element.number === value
+        );
+        this.withdrawForm.controls.amount.setValidators([
+          Validators.max(account.balance),
+          Validators.min(0.01),
+          Validators.required,
+        ]);
+        this.withdrawForm.updateValueAndValidity();
+      }
     });
   }
 
@@ -55,12 +73,17 @@ export class AccountWithdrawComponent implements OnInit {
       cancelButtonColor: 'Red',
     }).then((result) => {
       if (result.value) {
+        this.doingWithdraw = true;
         this.accountService.withdraw(this.withdrawForm.value).subscribe(
           (res) => {
             this.showMessage('El retiro se ha realizado con exito', 'success');
             this.getAccounts();
+            this.withdrawForm.reset();
           },
-          (error) => this.showMessage('Hubo un error al retirar', 'error')
+          (error) => this.showMessage('Hubo un error al retirar', 'error'),
+          () => {
+            this.doingWithdraw = false;
+          }
         );
       }
     });

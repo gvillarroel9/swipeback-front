@@ -40,13 +40,17 @@ export class AccountDepositComponent implements OnInit {
     this.depositForm.controls.accountNumber.valueChanges.subscribe((value) => {
       this.accountSelected = true;
 
-      const account = this.accounts.find((element) => element.number === value);
-      this.depositForm.controls.amount.setValidators([
-        Validators.max(9999999999999.99 - account.balance),
-        Validators.min(0.01),
-        Validators.required,
-      ]);
-      this.depositForm.updateValueAndValidity();
+      if (value) {
+        const account = this.accounts.find(
+          (element) => element.number === value
+        );
+        this.depositForm.controls.amount.setValidators([
+          Validators.max(9999999999999.99 - account.balance),
+          Validators.min(0.01),
+          Validators.required,
+        ]);
+        this.depositForm.updateValueAndValidity();
+      }
       console.log(this.depositForm.controls.balance.value);
     });
   }

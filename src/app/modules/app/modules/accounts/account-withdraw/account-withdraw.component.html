@@ -56,8 +56,8 @@
                 <div class="form-group">
                   <label class="form-label mb-3">Monto a retirar:</label>
                   <input
+                    currencyMask
                     formControlName="amount"
-                    type="number"
                     class="form-control"
                     placeholder=""
                     [class.invalid-input]="
@@ -72,13 +72,21 @@
                       withdrawForm.controls.amount.touched
                     "
                   >
-                    Requerido
+                    <p *ngIf="withdrawForm.controls.amount.errors.required">
+                      Requerido
+                    </p>
+                    <p *ngIf="withdrawForm.controls.amount.errors.max">
+                      Saldo de la cuenta superado
+                    </p>
+                    <p *ngIf="withdrawForm.controls.amount.errors.min">
+                      Minimo a depositar 0.01
+                    </p>
                   </div>
                 </div>
               </div>
               <div
                 *ngIf="withdrawForm.controls.balance.value"
-                class="col-12 d-flex justify-content-around"
+                class="col-12 d-flex justify-content-between"
               >
                 <div>
                   <h5 class="font-weight-bold">Cuenta seleccionada:</h5>
@@ -92,11 +100,14 @@
 
               <div class="col-12">
                 <button
+                  [disabled]="
+                    !accountSelected || doingWithdraw || withdrawForm.invalid
+                  "
                   type="button"
                   (click)="withdraw()"
                   class="btn btn-primary btn-block"
                 >
-                  Retirar
+                  {{ doingWithdraw ? "Retirando..." : "Retirar" }}
                 </button>
               </div>
             </div>
