@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: false,
+  apiUrl: 'https://dev-swipebank-api.herokuapp.com/',
+  encryptKey: 'swipebank!"·$.···@@#',
 };

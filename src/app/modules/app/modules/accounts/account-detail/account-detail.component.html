@@ -1,4 +1,4 @@
-<div *ngIf="accountInfo; else loader" class="content-area">
+<div *ngIf="infoReady; else loader" class="content-area">
   <div class="page-header">
     <h4 class="page-title">Movimientos de la cuenta</h4>
     <ol class="breadcrumb">
@@ -43,7 +43,7 @@
                   {{ trans.date | date: "d/M/yy, h:mm a" }}
                 </td>
                 <td class="text-center">{{ trans.ref }}</td>
-                <td class="text-center">{{trans.mesage}}</td>
+                <td class="text-center">{{ trans.mesage }}</td>
                 <td
                   class="text-center font-weight-bold"
                   [ngStyle]="{
@@ -72,8 +72,8 @@
         <!-- table-responsive -->
       </div>
     </div>
+  </div>
 </div>
-
 <ng-template #loader>
   <div class="row">
     <div class="col-12 text-center">

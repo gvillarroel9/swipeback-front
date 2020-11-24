@@ -16,6 +16,7 @@ export class AccountDetailComponent implements OnInit {
   accountInfo: any;
   page: number = 1;
   pageSize: number = 5;
+  infoReady = false;
 
   ngOnInit(): void {
     const accountNumber = this.route.snapshot.params.id;
@@ -27,6 +28,7 @@ export class AccountDetailComponent implements OnInit {
       (res) => {
         res.transactions.reverse();
         this.accountInfo = res;
+        this.infoReady = true;
       },
       (err) => {}
     );
