@@ -5,6 +5,7 @@ import { SignUpPage } from './pages/sign-up/sign-up.page';
 import { AppLayoutComponent } from './app-layout.component';
 import { AuthGuard } from './guards/auth.guard';
 import { CreditCardListComponent } from './modules/credit-card/credit-card-list/credit-card-list.component';
+import { CommerceModule } from './modules/commerce/commerce.module';
 
 const routes: Routes = [
   {
@@ -39,6 +40,13 @@ const routes: Routes = [
         loadChildren: () =>
           import('./modules/accounts/accounts.module').then(
             (m) => m.AccountsModule
+          ),
+      },
+      {
+        path: 'commerce',
+        loadChildren: () =>
+          import('./modules/commerce/commerce.module').then(
+            (m) => m.CommerceModule
           ),
       },
       { path: '', redirectTo: 'dashboard' },
