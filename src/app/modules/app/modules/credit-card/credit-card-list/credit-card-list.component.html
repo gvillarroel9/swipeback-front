@@ -28,7 +28,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let creditCard of creditCards">
+              <tr *ngFor="let creditCard of creditCards | slice: (page - 1) * pageSize:page * pageSize">
                 <td>{{ creditCard.number }}</td>
                 <td>{{ creditCard.limit | currency }}</td>
                 <td>{{ creditCard.balance | currency }}</td>
@@ -44,6 +44,14 @@
           </table>
         </div>
         <!-- table-responsive -->
+        <div class="d-flex justify-content-center">
+          <ngb-pagination
+            [(page)]="page"
+            [pageSize]="pageSize"
+            [collectionSize]="creditCards.length"
+          >
+          </ngb-pagination>
+        </div>
       </div>
     </div>
   </div>
