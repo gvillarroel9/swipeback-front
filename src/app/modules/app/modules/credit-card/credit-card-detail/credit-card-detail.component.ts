@@ -38,6 +38,8 @@ export class CreditCardDetailComponent implements OnInit {
     this.creditCardService.getMovements(creditCardId).subscribe(
       (res) => {
         // res.transactions.reverse();
+        console.log(res);
+
         this.transactions = res.reverse();
       },
       (err) => {}

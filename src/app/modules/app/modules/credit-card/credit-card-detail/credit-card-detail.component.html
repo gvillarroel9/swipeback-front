@@ -87,12 +87,12 @@
                 <td
                   class="text-center font-weight-bold"
                   [ngStyle]="{
-                    color: trans.nature == 'DEBIT' ? 'green' : 'red'
+                    color: trans.nature == 'DEBIT' ? 'red' : 'green'
                   }"
                 >
                   <i
                     [ngClass]="
-                      trans.nature == 'DEBIT' ? 'fa fa-plus' : 'fa fa-minus'
+                      trans.nature == 'DEBIT' ? 'fa fa-minus' : 'fa fa-plus'
                     "
                   ></i>
                   {{ trans.amount | currency }}
