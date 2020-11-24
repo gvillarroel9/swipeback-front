@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000/',
+  apiUrl: 'https://dev-swipebank-api.herokuapp.com/',
   encryptKey: 'swipebank!"·$.···@@#',
 };
 
