@@ -8,17 +8,21 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { CreditCardPaymentComponent } from './credit-card-payment/credit-card-payment.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AccountsService } from '../../services/accounts/accounts.service';
-
-
+import { NgxCurrencyModule } from 'ngx-currency';
 
 @NgModule({
-  declarations: [CreditCardListComponent, CreditCardDetailComponent, CreditCardPaymentComponent],
+  declarations: [
+    CreditCardListComponent,
+    CreditCardDetailComponent,
+    CreditCardPaymentComponent,
+  ],
   imports: [
     CommonModule,
     CreditCardRoutingModule,
     NgbPaginationModule,
     ReactiveFormsModule,
+    NgxCurrencyModule,
   ],
-  providers: [CreditCardService, AccountsService]
+  providers: [CreditCardService, AccountsService],
 })
-export class CreditCardModule { }
+export class CreditCardModule {}

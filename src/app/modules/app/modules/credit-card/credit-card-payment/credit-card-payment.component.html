@@ -1,85 +1,151 @@
 <div class="content-area">
-    <div class="page-header">
-        <h4 class="page-title">Pagar</h4>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">Swipebank</li>
-            <li class="breadcrumb-item">Tarjetas de crédito</li>
-            <li class="breadcrumb-item active font-weight-bold" aria-current="page">Pagar</li>
-        </ol>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between">
-                    <h3 class="card-title">Pagar</h3>
-                </div>
-                <div class="card-body">
-                    <form [formGroup]="paymentForm">
-                        <div class="row">
-                            <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label">
-                                        Cuenta a descontar:
-                                    </label>
-                                    <div class="btn-group my-2">
-
-                                        <button *ngIf="accounts.length" type="button" class="btn btn-info dropdown-toggle btn-block" data-toggle="dropdown">
-                                            {{ paymentForm.controls.accountNumber.value || 'Seleccione una cuenta'}} <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li *ngFor="let account of accounts" (click)="setFormValue('accountNumber', account.number)"> 
-                                                <a>{{account.number+'---'}} <b>{{'Balance: ' + (account.balance | currency)}}</b></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label mb-3">
-                                        Tarjeta de crédito a pagar:
-                                    </label>
-                                    <div class="btn-group my-2">
-
-                                        <button *ngIf="creditCards.length" type="button" class="btn btn-info dropdown-toggle btn-block" data-toggle="dropdown">
-                                            {{ paymentForm.controls.creditCardNumber.value || 'Seleccione una tarjeta'}} <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li *ngFor="let creditCard of creditCards" (click)="setFormValue('creditCardNumber', creditCard.number)"> 
-                                                <a>{{creditCard.number}}</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-12">                           
-                                <div class="form-group">
-                                    <label class="form-label mb-3">Monto a pagar:</label>
-                                    <input 
-                                        formControlName="amount" 
-                                        type="number"
-                                        class="form-control" 
-                                        placeholder=""
-                                        [class.invalid-input]="paymentForm.controls.amount.invalid && paymentForm.controls.amount.touched"
-                                    >
-                                    <div class="input-error" 
-                                    *ngIf="paymentForm.controls.amount.invalid && paymentForm.controls.amount.touched">
-                                        Requerido
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <button 
-                                    type="button" 
-                                    (click)="pay()" 
-                                    class="btn btn-primary btn-block"
-                                >Pagar</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+  <div class="page-header">
+    <h4 class="page-title">Pagar</h4>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">Swipebank</li>
+      <li class="breadcrumb-item">Tarjetas de crédito</li>
+      <li class="breadcrumb-item active font-weight-bold" aria-current="page">
+        Pagar
+      </li>
+    </ol>
+  </div>
+  <div class="row" *ngIf="creditCardsReady && accountsReady; else loader">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between">
+          <h3 class="card-title">Pagar</h3>
         </div>
+        <div class="card-body">
+          <form [formGroup]="paymentForm">
+            <div class="row">
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <label class="form-label"> Cuenta a descontar: </label>
+                  <div class="btn-group my-2">
+                    <button
+                      *ngIf="accounts.length"
+                      type="button"
+                      class="btn btn-info dropdown-toggle btn-block"
+                      data-toggle="dropdown"
+                    >
+                      {{
+                        paymentForm.controls.accountNumber.value ||
+                          "Seleccione una cuenta"
+                      }}
+                      <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li
+                        *ngFor="let account of accounts"
+                        (click)="setFormValue('accountNumber', account.number)"
+                      >
+                        <a
+                          >{{ account.number + "---" }}
+                          <b>{{
+                            "Balance: " + (account.balance | currency)
+                          }}</b></a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <label class="form-label">
+                    Tarjeta de crédito a pagar:
+                  </label>
+                  <div class="btn-group my-2">
+                    <button
+                      *ngIf="creditCards.length"
+                      type="button"
+                      class="btn btn-info dropdown-toggle btn-block"
+                      data-toggle="dropdown"
+                    >
+                      {{
+                        paymentForm.controls.creditCardNumber.value ||
+                          "Seleccione una tarjeta"
+                      }}
+                      <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li
+                        *ngFor="let creditCard of creditCards"
+                        (click)="
+                          setFormValue('creditCardNumber', creditCard.number)
+                        "
+                      >
+                        <a
+                          >{{ creditCard.number + "---" }}
+                          <b>{{
+                            creditCard.limit - creditCard.balance
+                              | number: ".2-2"
+                          }}</b></a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <div class="form-group">
+                  <label class="form-label mb-3">Monto a pagar:</label>
+                  <input
+                    formControlName="amount"
+                    currencyMask
+                    class="form-control"
+                    placeholder=""
+                    [class.invalid-input]="
+                      paymentForm.controls.amount.invalid &&
+                      paymentForm.controls.amount.touched
+                    "
+                  />
+                  <div
+                    class="input-error"
+                    *ngIf="
+                      paymentForm.controls.amount.invalid &&
+                      paymentForm.controls.amount.touched
+                    "
+                  >
+                    <p *ngIf="paymentForm.controls.amount.errors.required">
+                      Requerido
+                    </p>
+                    <p *ngIf="paymentForm.controls.amount.errors.max">
+                      Saldo de la cuenta superado
+                    </p>
+                    <p *ngIf="paymentForm.controls.amount.errors.min">
+                      Minimo a depositar 0.01
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <button
+                  [disabled]="paymentForm.invalid"
+                  type="button"
+                  (click)="pay()"
+                  class="btn btn-primary btn-block"
+                >
+                  Pagar
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
+  </div>
+  <ng-template #loader>
+    <div class="row">
+      <div class="col-12 text-center">
+        <div class="dimmer active">
+          <div class="spinner2">
+            <div class="cube1"></div>
+            <div class="cube2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
 </div>
