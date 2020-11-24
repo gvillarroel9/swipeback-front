@@ -31,6 +31,11 @@ export class SidebarComponent implements OnInit {
         {label: 'Pagar', url: 'credit-card/payment', icon: 'fa fa-credit-card'},
       ]
     },
+    {label: 'Comercios', url: 'commerce', icon: 'fa fa-shopping-bag', dropdown: true,
+      subNavItems: [
+        {label: 'Mis comercios', url: 'commerce', icon: 'fa fa-shopping-bag'}
+      ]
+    }
   ];
 
   ngOnInit() {

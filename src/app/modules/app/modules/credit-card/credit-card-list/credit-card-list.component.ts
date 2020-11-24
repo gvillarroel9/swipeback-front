@@ -9,7 +9,10 @@ import Swal from 'sweetalert2';
 })
 export class CreditCardListComponent {
   public creditCards = [];
-  creditCardsReady = false;
+  public creditCardsReady = false;
+  public page: number = 1;
+  public pageSize: number = 5;
+  
   constructor(private _creditCardService: CreditCardService) {
     this._creditCardService.getCreditCards().subscribe((res) => {
       this.creditCards = res;
