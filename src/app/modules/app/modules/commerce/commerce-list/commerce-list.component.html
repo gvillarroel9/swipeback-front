@@ -1,1 +1,59 @@
-<p>commerce-list works!</p>
+<div class="content-area">
+    <div class="page-header">
+        <h4 class="page-title">Comercios</h4>
+        <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Swipebank</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+            Comercios
+        </li>
+        </ol>
+    </div>
+    <div class="row" *ngIf="commercesReady; else loader">
+        <div class="col-md-12 col-lg-12">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between">
+              <h3 class="card-title">Todos mis comercios</h3>
+              <button class="btn btn-primary" (click)="createCommerce()">
+                Crear comercio
+              </button>
+            </div>
+            <div class="table-responsive">
+              <table class="table card-table table-vcenter text-nowrap">
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>API Key</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let commerce of commerces">
+                    <td>{{ commerce.name }}</td>
+                    <td> {{ commerce.apiKey }}</td>
+                    <td>
+                        <a
+                        class="btn btn-info"
+                        ><i class="fa fa-eye" style="color: white;"></i
+                    ></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- table-responsive -->
+          </div>
+        </div>
+      </div>
+    <ng-template #loader>
+        <div class="row">
+          <div class="col-12 text-center">
+            <div class="dimmer active">
+              <div class="spinner2">
+                <div class="cube1"></div>
+                <div class="cube2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+</div>
