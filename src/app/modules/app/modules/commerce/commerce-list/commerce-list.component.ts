@@ -12,6 +12,9 @@ export class CommerceListComponent implements OnInit {
 
   public commerces = [];
   public commercesReady = false; 
+  page: number = 1;
+  pageSize: number = 5;
+  
   constructor(private _commerceService: CommerceService) {
     this._commerceService.getCommerces().subscribe( (res) => {
       this.commerces = res;

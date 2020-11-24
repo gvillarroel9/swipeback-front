@@ -27,7 +27,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let commerce of commerces">
+                  <tr *ngFor="let commerce of commerces | slice: (page - 1) * pageSize:page * pageSize">
                     <td>{{ commerce.name }}</td>
                     <td> {{ commerce.apiKey }}</td>
                     <td>
@@ -41,6 +41,14 @@
               </table>
             </div>
             <!-- table-responsive -->
+            <div class="d-flex justify-content-center">
+                <ngb-pagination
+                [(page)]="page"
+                [pageSize]="pageSize"
+                [collectionSize]="commerces.length"
+                >
+                </ngb-pagination>
+            </div>
           </div>
         </div>
       </div>
