@@ -10,7 +10,7 @@ import { AccountWithdrawComponent } from './account-withdraw/account-withdraw.co
 import { AccountDetailComponent } from './account-detail/account-detail.component';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { AccountTransactionComponent } from './account-transaction/account-transaction.component';
-
+import { NgxCurrencyModule } from 'ngx-currency';
 @NgModule({
   declarations: [
     AccountListComponent,
@@ -24,6 +24,7 @@ import { AccountTransactionComponent } from './account-transaction/account-trans
     AccountsRoutingModule,
     ReactiveFormsModule,
     NgbPaginationModule,
+    NgxCurrencyModule,
   ],
   providers: [AccountsService],
 })

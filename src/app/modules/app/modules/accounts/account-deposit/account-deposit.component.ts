@@ -12,7 +12,8 @@ export class AccountDepositComponent implements OnInit {
   depositForm: FormGroup;
   accounts: any = [];
   accountsReady = false;
-
+  doingDeposit = false;
+  accountSelected = false;
   constructor(
     private formBuilder: FormBuilder,
     private accountService: AccountsService
@@ -36,6 +37,18 @@ export class AccountDepositComponent implements OnInit {
       amount: ['', Validators.required],
       balance: [''],
     });
+    this.depositForm.controls.accountNumber.valueChanges.subscribe((value) => {
+      this.accountSelected = true;
+
+      const account = this.accounts.find((element) => element.number === value);
+      this.depositForm.controls.amount.setValidators([
+        Validators.max(9999999999999.99 - account.balance),
+        Validators.min(0.01),
+        Validators.required,
+      ]);
+      this.depositForm.updateValueAndValidity();
+      console.log(this.depositForm.controls.balance.value);
+    });
   }
 
   setFormValue(attr: string, value: string) {
@@ -55,6 +68,7 @@ export class AccountDepositComponent implements OnInit {
       cancelButtonColor: 'Red',
     }).then((result) => {
       if (result.value) {
+        this.doingDeposit = true;
         this.accountService.deposit(this.depositForm.value).subscribe(
           (res) => {
             this.showMessage(
@@ -62,8 +76,12 @@ export class AccountDepositComponent implements OnInit {
               'success'
             );
             this.getAccounts();
+            this.depositForm.reset();
           },
-          (error) => this.showMessage('Hubo un error al depositar', 'error')
+          (error) => this.showMessage('Hubo un error al depositar', 'error'),
+          () => {
+            this.doingDeposit = false;
+          }
         );
       }
     });

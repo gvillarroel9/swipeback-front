@@ -56,8 +56,8 @@
                 <div class="form-group">
                   <label class="form-label mb-3">Monto a Depositar:</label>
                   <input
+                    currencyMask
                     formControlName="amount"
-                    type="number"
                     class="form-control"
                     placeholder=""
                     [class.invalid-input]="
@@ -72,13 +72,21 @@
                       depositForm.controls.amount.touched
                     "
                   >
-                    Requerido
+                    <p *ngIf="depositForm.controls.amount.errors.required">
+                      Requerido
+                    </p>
+                    <p *ngIf="depositForm.controls.amount.errors.max">
+                      Saldo de la cuenta superado
+                    </p>
+                    <p *ngIf="depositForm.controls.amount.errors.min">
+                      Minimo a depositar 0.01
+                    </p>
                   </div>
                 </div>
               </div>
               <div
                 *ngIf="depositForm.controls.balance.value"
-                class="col-12 d-flex justify-content-around"
+                class="col-12 d-flex justify-content-between text-muted"
               >
                 <div>
                   <h5 class="font-weight-bold">Cuenta seleccionada:</h5>
@@ -95,8 +103,11 @@
                   type="button"
                   (click)="deposit()"
                   class="btn btn-primary btn-block"
+                  [disabled]="
+                    !accountSelected || doingDeposit || depositForm.invalid
+                  "
                 >
-                  Depositar
+                  {{ doingDeposit ? "Depositando..." : "Depositar" }}
                 </button>
               </div>
             </div>
