@@ -32,6 +32,7 @@
                     <td> {{ commerce.apiKey }}</td>
                     <td>
                         <a
+                        [routerLink]="['detail', commerce.id]"
                         class="btn btn-info"
                         ><i class="fa fa-eye" style="color: white;"></i
                     ></a>

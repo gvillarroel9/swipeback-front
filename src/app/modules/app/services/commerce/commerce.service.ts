@@ -17,4 +17,8 @@ export class CommerceService {
   public postCommerce(name: string): Observable<any>{
     return this.http.post(`${environment.apiUrl}shops`, { name });
   }
+
+  public getCommerceDetails(id: number): Observable<any>{
+    return this.http.get(`${environment.apiUrl}shops/${id}`);
+  }
 }
