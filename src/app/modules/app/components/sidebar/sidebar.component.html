@@ -1,18 +1,32 @@
-<nav id="sidebar" class="nav-sidebar" style="height: 78vh;">
+<nav id="sidebar" class="nav-sidebar">
   <ul class="list-unstyled components mb-0 p-0" id="accordion">
-  
-    <li *ngFor = "let navItem of navItems; let i = index" class="">
-      
-      <a *ngIf="!navItem.dropdown" href="#navItem{{index}}" [routerLink]="[navItem.url]" class="wave-effect {{navItem.dropdown? 'accordion-toggle' : '' }}"><i class="{{navItem.icon}} mr-2"></i> {{navItem.label}}</a>
-      
-      <a *ngIf="navItem.dropdown" href="#navItem{{i}}" class="wave-effect accordion-toggle" data-toggle="collapse" aria-expanded="false">
-        <i class="{{navItem.icon}} mr-2"></i> {{navItem.label}}
+    <li *ngFor="let navItem of navItems; let i = index" class="">
+      <a
+        *ngIf="!navItem.dropdown"
+        [routerLink]="[navItem.url]"
+        class="wave-effect {{ navItem.dropdown ? 'accordion-toggle' : '' }}"
+        ><i class="{{ navItem.icon }} mr-2"></i> {{ navItem.label }}</a
+      >
+
+      <a
+        *ngIf="navItem.dropdown"
+        href="#navItem{{ i }}"
+        class="wave-effect accordion-toggle"
+        data-toggle="collapse"
+        aria-expanded="false"
+      >
+        <i class="{{ navItem.icon }} mr-2"></i> {{ navItem.label }}
       </a>
-      <ul *ngIf="navItem.dropdown" class="collapse list-unstyled p-0" id="navItem{{i}}" data-parent="#accordion">
+      <ul
+        *ngIf="navItem.dropdown"
+        class="collapse list-unstyled p-0"
+        id="navItem{{ i }}"
+        data-parent="#accordion"
+      >
         <li *ngFor="let subNavItem of navItem.subNavItems">
-          <a [routerLink]="[subNavItem.url]">{{subNavItem.label}}</a>
+          <a [routerLink]="[subNavItem.url]">{{ subNavItem.label }}</a>
         </li>
       </ul>
-    </li>    
+    </li>
   </ul>
 </nav>

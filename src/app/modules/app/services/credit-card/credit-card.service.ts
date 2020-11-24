@@ -17,4 +17,12 @@ export class CreditCardService {
   public postCreditCard(): Observable<any>{
     return this.http.post(`${environment.apiUrl}credit-cards`, {});
   }
+
+  public getMovements(creditCardNumber: string): Observable<any>{
+    return this.http.get(`${environment.apiUrl}credit-cards/${creditCardNumber}/movements`);
+  }
+
+  public payment(body: any): Observable<any>{
+    return this.http.post(`${environment.apiUrl}credit-cards/balance-payment`, body);
+  }
 }

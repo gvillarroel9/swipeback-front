@@ -9,31 +9,50 @@ import { CreditCardListComponent } from './modules/credit-card/credit-card-list/
 const routes: Routes = [
   {
     path: 'signin',
-    component: SignInPage
+    component: SignInPage,
   },
   {
     path: 'signup',
-    component: SignUpPage
+    component: SignUpPage,
   },
   {
     path: '',
     component: AppLayoutComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: 'dashboard', loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule) },
-      { path: 'credit-card', loadChildren: () => import('./modules/credit-card/credit-card.module').then(m => m.CreditCardModule) },
-      { path: 'account', loadChildren: () => import('./modules/accounts/accounts.module').then(m => m.AccountsModule) }
-    ]
+      {
+        path: 'dashboard',
+        loadChildren: () =>
+          import('./modules/dashboard/dashboard.module').then(
+            (m) => m.DashboardModule
+          ),
+      },
+      {
+        path: 'credit-card',
+        loadChildren: () =>
+          import('./modules/credit-card/credit-card.module').then(
+            (m) => m.CreditCardModule
+          ),
+      },
+      {
+        path: 'account',
+        loadChildren: () =>
+          import('./modules/accounts/accounts.module').then(
+            (m) => m.AccountsModule
+          ),
+      },
+      { path: '', redirectTo: 'dashboard' },
+    ],
   },
   {
     path: '**',
     pathMatch: 'full',
-    redirectTo: 'signin'
-  }
+    redirectTo: 'signin',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

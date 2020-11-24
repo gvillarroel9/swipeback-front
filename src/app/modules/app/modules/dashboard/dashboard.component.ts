@@ -8,20 +8,19 @@ import { LocalService } from '../../services/local-storage/local.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-
   public barChartOptions: ChartOptions = {
     responsive: true,
     // We use these empty structures as placeholders for dynamic theming.
-    scales: { xAxes: [{}], yAxes: [{display: false}] },
+    scales: { xAxes: [{}], yAxes: [{ display: false }] },
     plugins: {
       datalabels: {
         anchor: 'end',
         align: 'end',
-      }
-    }
+      },
+    },
   };
   public barChartLabels: Label[] = [];
   public barChartType: ChartType = 'bar';
@@ -29,9 +28,8 @@ export class DashboardComponent implements OnInit {
 
   public barChartData: ChartDataSets[] = [
     { data: [], label: 'Balance' },
-    { data: [], label: 'Límite' }
+    { data: [], label: 'Límite' },
   ];
-
 
   public pieChartOptions: ChartOptions = {
     responsive: true,
@@ -45,7 +43,7 @@ export class DashboardComponent implements OnInit {
           return label;
         },
       },
-    }
+    },
   };
   public pieChartLabels: Label[] = [];
   public pieChartData: number[] = [];
@@ -57,15 +55,19 @@ export class DashboardComponent implements OnInit {
     },
   ];
 
-  totalBalance:number = 0;
-  userInfo:any;
+  totalBalance: number = 0;
+  userInfo: any;
   lastTransactions: any = [];
+
+  creditCardsResumeReady = false;
+  accountBalanceReady = false;
+  transactionsReady = false;
 
   constructor(
     private creditCardService: CreditCardService,
     private accountsService: AccountsService,
     private localService: LocalService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getCreditCards();
@@ -78,39 +80,53 @@ export class DashboardComponent implements OnInit {
   }
 
   getAccounts() {
-    this.accountsService.getAccounts().subscribe(
-      (res) => {
-        this.totalBalance = 0;
-        res.forEach((account)=> {
-            this.totalBalance += account.balance;
-            this.pieChartLabels.push(account.number);
-            this.pieChartData.push(account.balance);
-            this.pieChartColors[0].backgroundColor.push(this.random_rgba());
-            console.log(account.transactions);
-            this.lastTransactions = [...this.lastTransactions, ...account.transactions];
-          }        
-        );
-        this.lastTransactions = this.lastTransactions.sort((a,b)=>a.id-b.id);
-        this.lastTransactions.reverse();
-      }
-    );
+    this.accountsService.getAccounts().subscribe((res) => {
+      this.totalBalance = 0;
+      res.forEach((account) => {
+        this.totalBalance += account.balance;
+        this.pieChartLabels.push(account.number);
+        this.pieChartData.push(account.balance);
+        this.pieChartColors[0].backgroundColor.push(this.random_rgba());
+        console.log(account.transactions);
+        this.lastTransactions = [
+          ...this.lastTransactions,
+          ...account.transactions,
+        ];
+      });
+      this.accountBalanceReady = true;
+
+      this.lastTransactions = this.lastTransactions.sort((a, b) => a.id - b.id);
+      this.lastTransactions.reverse();
+      // transactions ready
+      this.transactionsReady = true;
+    });
   }
 
   getCreditCards() {
-    this.creditCardService.getCreditCards().subscribe(
-      (res) => {
-        res.forEach((creditCard) => {
-            this.barChartLabels.push(creditCard.number);
-            this.barChartData[0].data.push(creditCard.balance);
-            this.barChartData[1].data.push(creditCard.limit);
-        })
-      }
-    )
+    this.creditCardService.getCreditCards().subscribe((res) => {
+      res.forEach((creditCard) => {
+        this.barChartLabels.push(creditCard.number);
+        this.barChartData[0].data.push(creditCard.balance);
+        this.barChartData[1].data.push(creditCard.limit);
+      });
+      this.creditCardsResumeReady = true;
+    });
   }
 
   random_rgba() {
-    var o = Math.round, r = Math.random, s = 255;
-    return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
+    var o = Math.round,
+      r = Math.random,
+      s = 255;
+    return (
+      'rgba(' +
+      o(r() * s) +
+      ',' +
+      o(r() * s) +
+      ',' +
+      o(r() * s) +
+      ',' +
+      r().toFixed(1) +
+      ')'
+    );
   }
-
 }

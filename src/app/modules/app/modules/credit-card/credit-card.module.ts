@@ -4,15 +4,21 @@ import { CreditCardListComponent } from './credit-card-list/credit-card-list.com
 import { CreditCardRoutingModule } from './credit-card-routing.module';
 import { CreditCardService } from '../../services/credit-card/credit-card.service';
 import { CreditCardDetailComponent } from './credit-card-detail/credit-card-detail.component';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { CreditCardPaymentComponent } from './credit-card-payment/credit-card-payment.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AccountsService } from '../../services/accounts/accounts.service';
 
 
 
 @NgModule({
-  declarations: [CreditCardListComponent, CreditCardDetailComponent],
+  declarations: [CreditCardListComponent, CreditCardDetailComponent, CreditCardPaymentComponent],
   imports: [
     CommonModule,
-    CreditCardRoutingModule
+    CreditCardRoutingModule,
+    NgbPaginationModule,
+    ReactiveFormsModule,
   ],
-  providers: [CreditCardService]
+  providers: [CreditCardService, AccountsService]
 })
 export class CreditCardModule { }
