@@ -40,7 +40,7 @@ export class AccountDetailComponent implements OnInit {
     this.accountService.getMovements(accountId).subscribe((res) => {
       console.log(res);
 
-      this.transactions = res;
+      this.transactions = res.reverse();
     });
   }
 }
