@@ -13,7 +13,7 @@
                 <div class="form-group">
                   <div *ngIf="error" class="alert alert-danger button-section">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <strong>Error al registrarse</strong>
+                    <strong>Error al ingresar</strong>
                     <hr class="message-inner-separator">
                     <p class="mb-0 text-capitalize"> {{error}} </p>
                   </div>
@@ -25,7 +25,7 @@
                   <input 
                       formControlName="username" 
                       class="form-control"
-                      placeholder="geraldov45"
+                      placeholder="Username"
                       [class.invalid-input]="signInForm.controls.username.invalid && signInForm.controls.username.touched"
                   >
                   <div class="input-error" *ngIf="signInForm.controls.username.invalid && signInForm.controls.username.touched">
